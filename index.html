@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>แจ้งอาการรถ Mercedes-Benz | Mr.Chuti อะไหล่เบนซ์มือสอง</title>
+<meta name="description" content="แจ้งอาการรถ Mercedes-Benz — ทีม Mr.Chuti ผู้เชี่ยวชาญ W140, M104, M119 จะติดต่อกลับทาง LINE">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Sukhumvit Set', 'Kanit', 'Sarabun', sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    line-height: 1.6;
+    font-size: 16px;
+    min-height: 100vh;
+  }
+  .container { max-width: 600px; margin: 0 auto; padding: 0 16px; }
+  .header {
+    background: linear-gradient(135deg, #1a2942 0%, #2c4878 100%);
+    color: white; padding: 24px 16px 28px; text-align: center;
+  }
+  .logo-circle {
+    width: 56px; height: 56px;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700; margin-bottom: 10px;
+  }
+  .header h1 { font-size: 20px; margin-bottom: 4px; font-weight: 600; }
+  .header p { font-size: 13px; opacity: 0.85; }
+  .specialty-badge {
+    display: inline-block;
+    background: rgba(255,215,0,0.2);
+    border: 1px solid rgba(255,215,0,0.4);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    margin-top: 8px;
+    color: #ffd700;
+  }
+  .badge-row { margin-top: 10px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .badge {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+  }
+  .badge.featured {
+    background: rgba(255,215,0,0.25);
+    border: 1px solid rgba(255,215,0,0.4);
+    font-weight: 600;
+  }
+  .progress {
+    background: white; padding: 12px 16px;
+    border-bottom: 1px solid #e5e5e7;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .progress-bar { height: 4px; background: #e5e5e7; border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #1a2942; width: 33%; transition: width 0.3s ease; }
+  .progress-text { font-size: 12px; color: #6e6e73; margin-top: 6px; text-align: center; }
+  .card {
+    background: white; border-radius: 14px; padding: 20px 16px; margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 { font-size: 17px; margin-bottom: 4px; font-weight: 600; color: #1d1d1f; }
+  .card .desc { font-size: 13px; color: #6e6e73; margin-bottom: 16px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: #1d1d1f; }
+  .field label .required { color: #d70015; }
+  .field label .hint { color: #8e8e93; font-weight: 400; font-size: 12px; }
+  .field input[type="text"], .field input[type="tel"], .field input[type="number"],
+  .field select, .field textarea {
+    width: 100%; padding: 12px 14px; border: 1px solid #d1d1d6; border-radius: 10px;
+    font-size: 16px; background: white; color: #1d1d1f;
+    -webkit-appearance: none; appearance: none;
+    transition: border-color 0.15s; font-family: inherit;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: #1a2942; box-shadow: 0 0 0 3px rgba(26,41,66,0.1);
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236e6e73' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px;
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .symptom-group { margin-bottom: 18px; }
+  .symptom-group-title { font-size: 13px; font-weight: 600; color: #1d1d1f; margin-bottom: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    border: 1px solid #d1d1d6; background: white; padding: 8px 12px; border-radius: 18px;
+    font-size: 13px; cursor: pointer; transition: all 0.15s; color: #1d1d1f; font-family: inherit;
+  }
+  .chip:hover { border-color: #1a2942; }
+  .chip.selected { background: #1a2942; color: white; border-color: #1a2942; }
+  .chip.urgent.selected { background: #c41e3a; border-color: #c41e3a; }
+  .followup-section {
+    margin-top: 16px; padding: 14px;
+    background: #f0f7ff; border: 1px solid #cfe2ff; border-radius: 10px;
+    display: none;
+  }
+  .followup-section.show { display: block; }
+  .followup-section h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #1a2942; }
+  .followup-q { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #d6e7fc; }
+  .followup-q:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+  .followup-q-text { font-size: 13px; font-weight: 500; margin-bottom: 8px; color: #1a2942; }
+  .followup-options { display: flex; flex-wrap: wrap; gap: 6px; }
+  .followup-opt {
+    border: 1px solid #b8d4f5; background: white; padding: 6px 10px;
+    border-radius: 14px; font-size: 12px; cursor: pointer; color: #1a2942; font-family: inherit;
+  }
+  .followup-opt.selected { background: #1a2942; color: white; border-color: #1a2942; }
+  .urgency-banner {
+    margin-top: 16px; padding: 12px 14px; border-radius: 10px; font-size: 13px;
+    display: none; align-items: flex-start; gap: 10px;
+  }
+  .urgency-banner.show { display: flex; }
+  .urgency-banner.high { background: #fff0f0; border: 1px solid #f5c5c5; color: #8b0000; }
+  .urgency-banner.medium { background: #fff8e6; border: 1px solid #f0d68c; color: #7a4f00; }
+  .urgency-icon { font-size: 18px; flex-shrink: 0; }
+  .btn-row { display: flex; gap: 10px; margin-top: 8px; }
+  .btn {
+    padding: 14px 20px; border-radius: 12px; font-size: 15px; font-weight: 600;
+    cursor: pointer; border: none; flex: 1; transition: all 0.15s; font-family: inherit;
+  }
+  .btn-primary { background: #1a2942; color: white; }
+  .btn-primary:hover { background: #2c4878; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-secondary { background: #f0f0f3; color: #1d1d1f; }
+  .btn-secondary:hover { background: #e5e5e7; }
+  .btn-line {
+    background: #06c755; color: white; width: 100%; padding: 16px; font-size: 16px; margin-top: 12px;
+  }
+  .btn-line:hover { background: #04a546; }
+  .step { display: none; }
+  .step.active { display: block; }
+  .result-section { margin-top: 16px; padding: 14px; background: #f5f5f7; border-radius: 10px; }
+  .result-section h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1d1d1f; }
+  .result-list { list-style: none; }
+  .result-list li { padding: 10px 0; border-bottom: 1px solid #e5e5e7; font-size: 14px; }
+  .result-list li:last-child { border-bottom: none; }
+  .part-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
+  .part-name { font-weight: 500; flex: 1; }
+  .part-detail { font-size: 12px; color: #6e6e73; margin-top: 4px; padding-left: 4px; }
+  .part-detail .label { color: #1a2942; font-weight: 500; }
+  .confidence-tag { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 500; flex-shrink: 0; }
+  .conf-high { background: #ffe5e5; color: #c41e3a; }
+  .conf-mid { background: #fff4d6; color: #7a4f00; }
+  .conf-low { background: #e8f4f8; color: #2c4878; }
+  .weak-points-box {
+    margin-top: 14px; padding: 14px;
+    background: #fffbe6; border: 1px solid #ffe9a3; border-left: 4px solid #f0a800;
+    border-radius: 10px;
+  }
+  .weak-points-box h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #7a4f00; }
+  .weak-point-item { padding: 8px 0; border-bottom: 1px solid #ffe9a3; font-size: 13px; }
+  .weak-point-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .weak-point-name { font-weight: 600; color: #5c3a00; margin-bottom: 2px; }
+  .weak-point-desc { font-size: 12px; color: #7a4f00; line-height: 1.5; }
+  .disclaimer {
+    font-size: 12px; color: #6e6e73; background: #fffbe6; border: 1px solid #ffe9a3;
+    padding: 12px; border-radius: 10px; margin: 14px 0; line-height: 1.5;
+  }
+  .disclaimer strong { color: #7a4f00; }
+  .success-icon {
+    width: 70px; height: 70px; background: #06c755; color: white;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px; font-size: 36px;
+  }
+  .success-card { text-align: center; padding: 28px 20px; }
+  .success-card h2 { color: #1d1d1f; font-size: 20px; }
+  .case-no {
+    font-family: 'Menlo', monospace; background: #f5f5f7;
+    padding: 8px 14px; border-radius: 8px; display: inline-block;
+    margin: 10px 0; font-size: 14px; color: #1a2942; font-weight: 600;
+  }
+  .spinner {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.3); border-top-color: white;
+    border-radius: 50%; animation: spin 0.6s linear infinite;
+    margin-right: 8px; vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .footer { text-align: center; padding: 20px; font-size: 12px; color: #8e8e93; }
+  .toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.85); color: white; padding: 12px 20px;
+    border-radius: 10px; font-size: 14px; opacity: 0; transition: opacity 0.3s;
+    z-index: 100; max-width: 90%;
+  }
+  .toast.show { opacity: 1; }
+  @media (max-width: 380px) {
+    .field-row { grid-template-columns: 1fr; }
+    .btn { font-size: 14px; padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-circle">MC</div>
+  <h1>Mr.Chuti อะไหล่เบนซ์มือสอง</h1>
+  <p>ตรวจเช็ค Mercedes-Benz ยุค 80s-90s</p>
+  <div class="badge-row">
+    <span class="badge">M111</span>
+    <span class="badge">M112</span>
+    <span class="badge featured">M104</span>
+    <span class="badge featured">M119</span>
+    <span class="badge">M120</span>
+  </div>
+</div>
+
+<div class="progress" id="progressBar">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-text" id="progressText">ขั้นที่ 1 จาก 3 — ข้อมูลรถของคุณ</div>
+</div>
+
+<div class="container">
+
+<div class="step active" id="step1">
+  <div class="card">
+    <h2>ข้อมูลรถของคุณ</h2>
+    <p class="desc">เริ่มจากข้อมูลพื้นฐานเพื่อให้เราระบุตัวรถได้ถูกต้อง</p>
+    <div class="field">
+      <label>รุ่น / Body Code <span class="required">*</span></label>
+      <select id="body" required>
+        <option value="">เลือกรุ่น...</option>
+        <optgroup label="⭐ S-Class (รุ่นเชี่ยวชาญพิเศษ)">
+          <option>W140 (S-Class 1991-1998) — ตัวจริง</option>
+        </optgroup>
+        <optgroup label="S-Class อื่น ๆ">
+          <option>W220 (S-Class 1999-2005)</option>
+          <option>W221 (S-Class 2006-2013)</option>
+          <option>W222 (S-Class 2014-2020)</option>
+        </optgroup>
+        <optgroup label="E-Class">
+          <option>W124 (E-Class -1995)</option>
+          <option>W210 (E-Class 1996-2002)</option>
+          <option>W211 (E-Class 2003-2009)</option>
+          <option>W212 (E-Class 2010-2016)</option>
+        </optgroup>
+        <optgroup label="C-Class">
+          <option>W202 (C-Class -2000)</option>
+          <option>W203 (C-Class 2001-2007)</option>
+          <option>W204 (C-Class 2008-2014)</option>
+        </optgroup>
+        <optgroup label="SL / CL / G">
+          <option>R129 (SL 1989-2001)</option>
+          <option>R230 (SL 2002-2011)</option>
+          <option>C140 (CL Coupe 1992-1998)</option>
+          <option>C215 (CL 2000-2006)</option>
+          <option>W463 (G-Class)</option>
+        </optgroup>
+        <option>อื่นๆ / ไม่ทราบ</option>
+      </select>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>ปีรถ <span class="required">*</span></label>
+        <input type="number" id="year" min="1980" max="2026" placeholder="1995" required>
+      </div>
+      <div class="field">
+        <label>เลขไมล์ <span class="hint">(กม.)</span></label>
+        <input type="number" id="mileage" placeholder="180000">
+      </div>
+    </div>
+    <div class="field">
+      <label>เครื่องยนต์ <span class="hint">(ถ้าทราบ)</span></label>
+      <select id="engine">
+        <option value="">ไม่ทราบ / ไม่แน่ใจ</option>
+        <optgroup label="⭐ เครื่องเชี่ยวชาญพิเศษ">
+          <option>M104 (6 สูบ เรียง)</option>
+          <option>M119 (V8 4.2/5.0)</option>
+        </optgroup>
+        <optgroup label="เบนซิน 4-6 สูบ">
+          <option>M111 (4 สูบ)</option>
+          <option>M112 (V6)</option>
+          <option>M271 (4 สูบ Kompressor)</option>
+          <option>M272 (V6)</option>
+        </optgroup>
+        <optgroup label="V8 / V12">
+          <option>M113 (V8 5.0/5.5)</option>
+          <option>M113K (V8 Supercharged)</option>
+          <option>M120 (V12 6.0)</option>
+          <option>M273 (V8)</option>
+          <option>M275 (V12 Twin-turbo)</option>
+        </optgroup>
+        <optgroup label="ดีเซล">
+          <option>OM606 (ดีเซล 6 สูบ)</option>
+          <option>OM648 (ดีเซล CDI)</option>
+        </optgroup>
+        <option>อื่นๆ</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>เกียร์</label>
+      <select id="transmission">
+        <option value="">ไม่ทราบ</option>
+        <option>เกียร์ออโต้</option>
+        <option>เกียร์ธรรมดา</option>
+      </select>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="goStep(2)">ถัดไป →</button>
+    </div>
+  </div>
+</div>
+
+<div class="step" id="step2">
+  <div class="card">
+    <h2>อาการที่พบ</h2>
+    <p class="desc">เลือกอาการที่ตรงกับรถคุณได้หลายข้อ ระบบจะถามต่อเพื่อให้แม่นขึ้น</p>
+    <div id="symptomGroups"></div>
+    <div class="followup-section" id="followupSection">
+      <h3>📋 ข้อมูลเพิ่มเติม</h3>
+      <div id="followupQuestions"></div>
+    </div>
+    <div class="urgency-banner" id="urgencyBanner">
+      <span class="urgency-icon" id="urgencyIcon">⚠️</span>
+      <div id="urgencyText"></div>
+    </div>
+    <div class="field" style="margin-top:16px;">
+      <label>เพิ่มเติม / อื่นๆ ที่อยากบอก <span class="hint">(ไม่บังคับ)</span></label>
+      <textarea id="notes" placeholder="เช่น เริ่มเป็นมา 2 เดือน, มีรหัส error P0171, หลังขับ 30 นาทีจะเป็น..."></textarea>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goStep(1)">← ย้อน</button>
+      <button class="btn btn-primary" onclick="goStep(3)">ถัดไป →</button>
+    </div>
+  </div>
+</div>
+
+<div class="step" id="step3">
+  <div class="card">
+    <h2>สรุปและข้อมูลติดต่อ</h2>
+    <p class="desc">ทีมเราจะติดต่อกลับทาง LINE หรือเบอร์โทรที่คุณให้ไว้</p>
+    <div class="result-section" id="analysisResult"></div>
+    <div id="weakPointsContainer"></div>
+    <div class="disclaimer">
+      <strong>หมายเหตุ:</strong> นี่คือการประเมินเบื้องต้นจากข้อมูลที่คุณกรอก ไม่ใช่ผลซ่อมขั้นสุดท้าย ทีมช่างจะตรวจรถจริงก่อนเสนอราคาทุกครั้ง
+    </div>
+    <div class="field" style="margin-top:16px;">
+      <label>ชื่อ / ชื่อเล่น <span class="required">*</span></label>
+      <input type="text" id="name" placeholder="คุณ..." required>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>เบอร์โทร <span class="required">*</span></label>
+        <input type="tel" id="phone" placeholder="08x-xxx-xxxx" required>
+      </div>
+      <div class="field">
+        <label>LINE ID <span class="hint">(ถ้ามี)</span></label>
+        <input type="text" id="lineid" placeholder="@yourline">
+      </div>
+    </div>
+    <div class="field">
+      <label>จังหวัด <span class="hint">(เพื่อประเมินค่าขนส่ง)</span></label>
+      <input type="text" id="province" placeholder="กรุงเทพฯ, นนทบุรี, ...">
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goStep(2)">← ย้อน</button>
+      <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">ส่งเคสและติดต่อร้าน</button>
+    </div>
+  </div>
+</div>
+
+<div class="step" id="stepDone">
+  <div class="card success-card">
+    <div class="success-icon">✓</div>
+    <h2>ส่งเคสเรียบร้อย!</h2>
+    <p style="color:#6e6e73; font-size:14px; margin-top:8px;">ทีมงาน Mr.Chuti จะติดต่อกลับโดยเร็วที่สุด</p>
+    <div class="case-no" id="caseNoDisplay">CASE-XXXX</div>
+    <div class="result-section" id="finalSummary" style="text-align:left;"></div>
+    <div id="finalWeakPoints"></div>
+    <button class="btn btn-line" onclick="openLine()">
+      <span style="font-size:18px;">💬</span> เปิด LINE คุยกับร้านต่อ
+    </button>
+    <button class="btn btn-secondary" style="margin-top:8px; width:100%;" onclick="copyCaseNo()">
+      📋 คัดลอกหมายเลขเคส
+    </button>
+    <p style="font-size:12px; color:#8e8e93; margin-top:14px;">
+      เก็บหมายเลขเคสไว้อ้างอิงเมื่อพูดคุยกับร้าน
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  Mr.Chuti อะไหล่เบนซ์มือสอง — ผู้เชี่ยวชาญ Mercedes-Benz<br>
+  W140 • M104 • M119<br>
+  LINE: @mr.chuti5988
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CONFIG = {
+  GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyz72Ctrf6cgLerww8a9-MvQipA4Yprn3uMcJNAuYh0wbCXdE5NFpGgJy82MFF5qyTLKw/exec',
+  LINE_OA_ID: 'mr.chuti5988',
+  SHOP_NAME: 'Mr.Chuti อะไหล่เบนซ์มือสอง'
+};
+
+const SYMPTOMS = {
+  cooling: {
+    title: '🌡️ ระบบหล่อเย็น / ความร้อน',
+    items: [
+      { id:'overheat', label:'เครื่องร้อนจัด/น้ำเดือด', urgent:true,
+        parts:[
+          ['หม้อน้ำ', 0.7, 'ดูคราบน้ำที่หม้อน้ำ ครีบหักเสียหาย', 'น้ำหายเร็ว'],
+          ['ปั๊มน้ำ', 0.7, 'ดูน้ำซึมที่ pulley', 'เสียงคำราม'],
+          ['Thermostat / วาล์วน้ำ', 0.65, 'น้ำไม่หมุนตอนเปิดเครื่องนาน', 'ร้อนช้า/ไม่ร้อน'],
+          ['พัดลมไฟฟ้า', 0.5, 'ไม่หมุน หรือหมุนเบา', 'ร้อนตอนรถติด'],
+          ['ฝาหม้อน้ำ', 0.4, 'ความดันรั่ว', 'น้ำพุ่งออก reservoir']
+        ],
+        followups: [
+          {q:'เครื่องร้อนตอนไหน?', opts:['ตอนรถติด/นิ่ง','ตอนวิ่งเร็ว','ทั้งคู่']},
+          {q:'พัดลมไฟฟ้าทำงานไหม?', opts:['หมุนแรงปกติ','หมุนเบา','ไม่หมุน','ไม่ได้สังเกต']}
+        ] },
+      { id:'water_loss', label:'น้ำในหม้อน้ำหายผิดปกติ', urgent:true,
+        parts:[
+          ['ปะเก็นฝาสูบ', 0.7, 'ควันขาว น้ำมันเครื่องเป็นนม', 'เครื่องร้อน + ควันขาว'],
+          ['หม้อน้ำรั่ว', 0.6, 'คราบน้ำใต้หม้อน้ำ', 'หยดน้ำใต้รถ'],
+          ['ท่อยางน้ำ', 0.5, 'ดูยางบวม/แตกร้าว', 'หยดน้ำที่ข้อต่อ'],
+          ['ถังพักน้ำ (reservoir)', 0.45, 'พลาสติกแตก', 'น้ำหายช้า'],
+          ['ปั๊มน้ำ (ซีลรั่ว)', 0.5, 'น้ำซึมที่ pulley', 'เสียงคำราม']
+        ],
+        followups: [
+          {q:'น้ำหายเร็วแค่ไหน?', opts:['ทุกวัน','ทุกสัปดาห์','ทุกเดือน']},
+          {q:'มีคราบน้ำใต้รถไหม?', opts:['มี','ไม่มี','ไม่แน่ใจ']}
+        ] },
+      { id:'heater_cold', label:'แอร์ร้อน (heater) ไม่อุ่น',
+        parts:[
+          ['Heater core ตัน', 0.7, 'น้ำในระบบไหลไม่ทั่ว', 'heater ไม่ร้อน'],
+          ['วาล์วน้ำ heater', 0.6, 'ติดล็อก ไม่เปิด', 'ลมเย็นแม้เครื่องร้อน']
+        ] }
+    ]
+  },
+  engine: {
+    title: '🔧 เครื่องยนต์',
+    items: [
+      { id:'stall', label:'เครื่องดับกลางทาง', urgent:true,
+        parts:[
+          ['ปั๊มเชื้อเพลิง', 0.6, 'เสียงปั๊มเงียบลง', 'สตาร์ทยากตอนร้อน'],
+          ['คอยล์จุดระเบิด', 0.55, 'ตรวจ spark', 'เครื่องสะดุด'],
+          ['Crankshaft sensor', 0.55, 'รถดับกะทันหันตอนร้อน', 'สตาร์ทไม่ติดต้องรอเย็น'],
+          ['สายไฟห้องเครื่อง (ฉนวนเสื่อม)', 0.6, 'เฉพาะ M104/M119/M120', 'ไฟลัด สตาร์ทไม่ติด'],
+          ['Fuel filter ตัน', 0.4, 'ขับนานแล้วรถสะดุด', 'รถเร่งไม่ขึ้น']
+        ],
+        followups: [
+          {q:'ดับตอนไหน?', opts:['รอบเดินเบา','ขับช้า','ขับเร็ว','ทุกสภาพ']},
+          {q:'หลังดับ สตาร์ทใหม่ติดไหม?', opts:['ติดทันที','ต้องรอเย็น','ติดยากมาก']}
+        ] },
+      { id:'oil_leak', label:'น้ำมันเครื่องรั่ว/หยด',
+        parts:[
+          ['ปะเก็นฝาวาล์ว', 0.85, 'ดูคราบรอบฝาวาล์ว', 'กลิ่นน้ำมันไหม้'],
+          ['ซีลห้องโซ่ไทม์', 0.5, 'คราบน้ำมันด้านหน้าเครื่อง', 'น้ำมันหยดใต้รถ'],
+          ['ปะเก็นอ่างน้ำมัน', 0.4, 'คราบใต้อ่างน้ำมัน', 'หยดบนพื้น'],
+          ['ซีลเพลาข้อเหวี่ยง', 0.4, 'น้ำมันที่ flywheel/pulley', 'คราบหน้า/หลัง']
+        ],
+        followups: [
+          {q:'รั่วเยอะแค่ไหน?', opts:['คราบเล็ก','หยดช้า','ไหลตลอด']},
+          {q:'รั่วตรงไหน?', opts:['ฝาวาล์ว','หน้าเครื่อง','ใต้อ่างน้ำมัน','ไม่ทราบ']}
+        ] },
+      { id:'smoke_blue', label:'ควันสีฟ้า (กินน้ำมัน)',
+        parts:[
+          ['ซีลก้านวาล์ว', 0.7, 'ควันฟ้าตอนสตาร์ท/เร่ง', 'น้ำมันเครื่องลด'],
+          ['แหวนลูกสูบ', 0.6, 'ควันฟ้าตอนวิ่งนาน', 'compression ต่ำ'],
+          ['Turbo seal (ถ้ามี turbo)', 0.5, 'ควันฟ้าตอนเร่ง', 'turbo มีน้ำมัน']
+        ],
+        followups: [
+          {q:'ควันออกตอนไหน?', opts:['สตาร์ทตอนเย็น','เร่งคันเร่ง','วิ่งนาน','ตลอดเวลา']}
+        ] },
+      { id:'smoke_white', label:'ควันสีขาวเยอะ', urgent:true,
+        parts:[
+          ['ปะเก็นฝาสูบ', 0.85, 'น้ำเข้าห้องเผาไหม้', 'น้ำหาย + เครื่องร้อน'],
+          ['ฝาสูบแตก/บิด', 0.4, 'pressure test', 'ผลตามมาจากร้อนจัด']
+        ] },
+      { id:'smoke_black', label:'ควันดำ',
+        parts:[
+          ['หัวฉีดรั่ว', 0.6, 'น้ำมันเกินอากาศ', 'กลิ่นเชื้อเพลิง'],
+          ['MAF sensor', 0.5, 'คำนวณอากาศผิด', 'รถเร่งไม่ขึ้น'],
+          ['Air filter ตัน', 0.4, 'ตรวจกรองอากาศ', 'เร่งไม่ขึ้น'],
+          ['Fuel pressure regulator', 0.5, 'แรงดันสูงเกิน', 'กลิ่นน้ำมัน']
+        ] },
+      { id:'misfire', label:'เครื่องสั่น/รอบเดินไม่เรียบ',
+        parts:[
+          ['คอยล์จุดระเบิด', 0.85, 'ตรวจ spark + วัด resistance', 'ไฟ Check Engine'],
+          ['หัวเทียน', 0.7, 'หมดอายุ ตะกั่วจับ', 'สิ้นเปลือง'],
+          ['สายหัวเทียน (เครื่องเก่า)', 0.5, 'ฉนวนรั่ว spark กระโดด', 'เสียงเครื่องไม่เรียบ'],
+          ['หัวฉีดอุดตัน', 0.5, 'ใช้ injector cleaner ก่อน', 'เร่งไม่ขึ้น'],
+          ['Distributor cap (M104/M119)', 0.65, 'แตก/หน้าสัมผัสสึก', 'รถสะดุดตอนฝน']
+        ],
+        followups: [
+          {q:'สั่นตอนไหน?', opts:['รอบเดินเบา','เร่งคันเร่ง','ความเร็วคงที่','ทุกสภาพ']},
+          {q:'ไฟ Check Engine ติดไหม?', opts:['ติด','กระพริบ','ไม่ติด']}
+        ] },
+      { id:'check_light', label:'ไฟ Check Engine ติด',
+        parts:[
+          ['เซ็นเซอร์ออกซิเจน (O2)', 0.55, 'รหัส P0130-P0150', 'สิ้นเปลือง'],
+          ['MAF sensor', 0.5, 'รถเร่งไม่ขึ้น', 'ควันดำ'],
+          ['คอยล์จุดระเบิด', 0.45, 'รหัส P0300', 'เครื่องสั่น'],
+          ['EGR valve (ดีเซล)', 0.5, 'รหัส P0401', 'เร่งไม่ขึ้น']
+        ],
+        followups: [
+          {q:'มีรหัส error ไหม?', opts:['ไม่มี','มีรหัส (พิมพ์ในช่องโน้ต)','ยังไม่ได้สแกน']}
+        ] },
+      { id:'chain_noise', label:'เสียงโซ่ไทม์ดัง',
+        parts:[
+          ['โซ่ไทม์ + เกียร์', 0.85, 'เสียงคลิกตอนสตาร์ทเย็น', 'เสียงดังลดเมื่อร้อน'],
+          ['Chain tensioner', 0.8, 'แรงดันไม่พอ', 'เสียงดังตอนเร่ง'],
+          ['Guide rail (พลาสติกแตก)', 0.5, 'เฉพาะ M104/M119/M120', 'เสียงโซ่กระทบเหล็ก']
+        ],
+        followups: [
+          {q:'เสียงดังตอนไหน?', opts:['สตาร์ทตอนเย็น','เครื่องร้อน','ตลอดเวลา']}
+        ] },
+      { id:'hard_start', label:'สตาร์ทติดยาก',
+        parts:[
+          ['ปั๊มเชื้อเพลิง', 0.6, 'แรงดันต่ำ', 'ติดยากตอนร้อน'],
+          ['หัวฉีด leak', 0.5, 'น้ำมันรั่วลงห้องเผาไหม้', 'ติดแล้วดับ'],
+          ['Crank sensor', 0.55, 'สัญญาณไม่นิ่ง', 'ติดยากตอนร้อน'],
+          ['คอยล์จุดระเบิด', 0.4, 'spark อ่อน', 'เครื่องสั่น'],
+          ['Battery / Starter', 0.5, 'หมุนช้า ไม่มีแรง', 'แบตอ่อน']
+        ],
+        followups: [
+          {q:'ติดยากตอนไหน?', opts:['ตอนเครื่องเย็น','ตอนเครื่องร้อน','ทุกครั้ง']}
+        ] },
+      { id:'rough_idle', label:'รอบเดินเบาไม่นิ่ง',
+        parts:[
+          ['Idle control valve', 0.6, 'เครื่องเดินเบาขึ้นลง', 'ดับตอนติดเกียร์'],
+          ['MAF', 0.5, 'อากาศคำนวณผิด', 'เร่งไม่ขึ้น'],
+          ['Throttle body สกปรก', 0.5, 'ทำความสะอาดก่อน', 'เร่งช้า'],
+          ['ท่อยางสุญญากาศรั่ว', 0.55, 'ฟังเสียง hiss', 'รหัส lean']
+        ] }
+    ]
+  },
+  electric: {
+    title: '⚡ ไฟฟ้า / สตาร์ท',
+    items: [
+      { id:'no_start', label:'สตาร์ทไม่ติด', urgent:true,
+        parts:[
+          ['แบตเตอรี่', 0.7, 'voltage < 12V', 'ไฟหน้าหรี่'],
+          ['ไดสตาร์ท', 0.7, 'ไม่หมุน/หมุนช้า', 'มีแต่ไฟไม่หมุน'],
+          ['Ignition switch', 0.4, 'หมุนกุญแจไม่มีอะไร', ''],
+          ['EIS / SAM module', 0.4, 'รถ 2000+', 'อ่าน EIS ผ่าน Star']
+        ] },
+      { id:'weak_battery', label:'แบตหมดเร็ว',
+        parts:[
+          ['ไดชาร์จ (alternator)', 0.8, 'voltage ตอนเครื่องติด < 13.5V', 'ไฟแบตติดหน้าปัด'],
+          ['แบตเตอรี่อายุ', 0.6, 'อายุ 3-4 ปี', 'จอด 2 วันสตาร์ทไม่ติด'],
+          ['ไฟรั่ว (parasitic drain)', 0.5, 'วัดด้วยแอมป์มิเตอร์', 'หาบริเวณไฟรั่ว']
+        ] },
+      { id:'w140_wiring', label:'ระบบไฟฟ้าผิดปกติหลายจุด (เฉพาะ W140)',
+        parts:[
+          ['Wiring harness ห้องเครื่อง', 0.9, 'M-B classic — ฉนวนสายไฟแข็งกรอบ', 'ไฟลัด/ดับเป็นพัก ๆ'],
+          ['Distributor cap (M104/M119)', 0.5, 'พลาสติกแตก ความชื้นเข้า', 'รถสะดุดตอนฝน']
+        ],
+        followups: [
+          {q:'รถปีไหน?', opts:['1991-1995','1996-1998','ไม่ทราบ']}
+        ] },
+      { id:'dashboard_light', label:'ไฟโชว์หน้าปัด',
+        parts:[
+          ['เซ็นเซอร์ ABS', 0.5, 'ขดลวดเสีย/สายขาด', 'ไฟ ABS ขึ้น'],
+          ['Brake pad sensor', 0.6, 'ผ้าเบรกหมด', 'ไฟผ้าเบรกขึ้น'],
+          ['SBC pump (W211)', 0.4, 'เฉพาะ W211 ปี 03-06', 'ไฟ Brake แดง'],
+          ['Airbag sensor', 0.4, 'ไฟแอร์แบ็ก', 'ตรวจที่ Star']
+        ] },
+      { id:'central_lock', label:'เซ็นทรัลล็อกไม่ทำงาน',
+        parts:[
+          ['Door lock actuator', 0.8, 'ประตูใดประตูหนึ่งไม่ล็อก', 'เสียงคลิกแต่ไม่ล็อก'],
+          ['Vacuum pump (W140)', 0.7, 'W140 ใช้ระบบ vacuum', 'ทุกประตูไม่ทำงาน'],
+          ['Vacuum line รั่ว', 0.5, 'ตรวจ vacuum', 'เสียง vacuum ตลอด']
+        ],
+        followups: [
+          {q:'ประตูไหนเสีย?', opts:['ประตูเดียว','สองประตู','ทุกประตู']}
+        ] },
+      { id:'window', label:'กระจกไฟฟ้าเสีย',
+        parts:[
+          ['Window regulator', 0.85, 'รางขึ้น-ลงหัก', 'กระจกไม่ขึ้น'],
+          ['สวิตช์กระจก', 0.4, 'ลองเปลี่ยนตำแหน่ง', 'บางบานทำงาน'],
+          ['Window motor', 0.5, 'ไม่มีเสียงตอนกด', 'ไม่ขยับ']
+        ] }
+    ]
+  },
+  suspension: {
+    title: '🚗 ช่วงล่าง / เบรก / พวงมาลัย',
+    items: [
+      { id:'brake_fail', label:'เบรกไม่อยู่ / จม', urgent:true,
+        parts:[
+          ['ปั๊มเบรกหลัก (master cylinder)', 0.6, 'เบรกจมลึก', 'น้ำมันเบรกลด'],
+          ['SBC pump (W211)', 0.5, 'เฉพาะ W211 ปี 03-06', 'ไฟ Brake แดง'],
+          ['สายอ่อนเบรก', 0.4, 'บวม/รั่ว', 'รั่วตอนเบรก']
+        ] },
+      { id:'clunk', label:'เสียงตุ๊บตั๊บผ่านลูกระนาด',
+        parts:[
+          ['ลูกหมาก (ball joint)', 0.7, 'จับโยกล้อ มีคลอน', 'เสียงดังตอนเลี้ยว'],
+          ['บูชปีกนก', 0.7, 'ตรวจสภาพยาง', 'ขับไปกระเด้ง'],
+          ['Strut mount', 0.5, 'ส่วนบนของโช้ค', 'เสียงดังตอนเลี้ยว'],
+          ['Sway bar bushing', 0.55, 'บูชเหล็กกันโคลง', 'เสียงเฉพาะลูกระนาด']
+        ],
+        followups: [
+          {q:'เสียงดังตอนไหน?', opts:['ผ่านหลุม','เลี้ยว','เบรก','ทุกสภาพ']}
+        ] },
+      { id:'air_low', label:'รถยุบข้างใดข้างหนึ่ง',
+        parts:[
+          ['ถุงลม Airmatic', 0.85, 'รั่วช้า ๆ', 'ยุบเมื่อจอดข้ามคืน'],
+          ['ปั๊มลม Airmatic', 0.6, 'ปั๊มทำงานบ่อย', 'เสียงปั๊มดัง'],
+          ['Valve block', 0.5, 'วาล์วรั่วภายใน', 'รั่วเฉพาะมุม']
+        ] },
+      { id:'brake_squeal', label:'เบรกเสียงดัง',
+        parts:[
+          ['ผ้าเบรก', 0.85, 'ผ้าหมด เซ็นเซอร์โดน', 'ไฟผ้าเบรกขึ้น'],
+          ['จานเบรก', 0.6, 'จานเป็นรอย/บาง', 'เบรกแล้วสั่น']
+        ] },
+      { id:'brake_pulse', label:'เบรกแล้วสั่น',
+        parts:[
+          ['จานเบรก คด/บาง', 0.85, 'วัดความหนาจาน', 'สั่นที่พวงมาลัย'],
+          ['Caliper ติด', 0.4, 'จานร้อนผิดปกติ', 'เบรกเหม็นไหม้']
+        ] },
+      { id:'humming', label:'เสียงหวีดเวลาวิ่งเร็ว',
+        parts:[
+          ['ลูกปืนล้อ', 0.85, 'เสียงเปลี่ยนตามความเร็ว', 'เสียงเฉพาะข้างเดียว'],
+          ['ยางสึก', 0.4, 'ดอกยางสึกผิดปกติ', 'เสียงเปลี่ยนตามถนน']
+        ] },
+      { id:'steering_play', label:'พวงมาลัยฟรี/หลวม',
+        parts:[
+          ['ลูกหมากแร็ค (tie rod)', 0.7, 'จับโยกพวงมาลัย', 'รถขาดความนิ่ง'],
+          ['แร็คพวงมาลัย', 0.5, 'น้ำมันรั่ว', 'พวงมาลัยหนัก'],
+          ['Steering damper', 0.4, 'พวงมาลัยสั่น', 'ผลตามถนน']
+        ] }
+    ]
+  },
+  transmission: {
+    title: '⚙️ เกียร์',
+    items: [
+      { id:'jerk', label:'เกียร์กระตุก/เปลี่ยนแข็ง',
+        parts:[
+          ['Conductor plate (13-pin)', 0.85, 'M-B classic problem!', 'เปลี่ยนเกียร์ผิดจังหวะ'],
+          ['น้ำมันเกียร์ + กรอง', 0.7, 'น้ำมันสีดำ/ไหม้', 'เปลี่ยนทุก 60-80K km'],
+          ['Valve body', 0.5, 'เกียร์ไม่ shift บางจังหวะ', 'อาการเรื้อรัง']
+        ],
+        followups: [
+          {q:'เกียร์กระตุกตอนไหน?', opts:['เปลี่ยนเกียร์ขึ้น','เปลี่ยนเกียร์ลง','ออกตัว','ทุกจังหวะ']}
+        ] },
+      { id:'trans_leak', label:'น้ำมันเกียร์รั่ว',
+        parts:[
+          ['ปลั๊ก 13-pin (adapter)', 0.8, 'M-B classic — น้ำมันรั่วผ่านสายไฟ', 'น้ำมันลด/หยดใต้เกียร์'],
+          ['ซีลข้างเกียร์', 0.5, 'น้ำมันเกียร์หยดที่ axle', 'หยดข้างเกียร์']
+        ] },
+      { id:'no_drive', label:'เข้าเกียร์ D ไม่วิ่ง', urgent:true,
+        parts:[
+          ['Valve body', 0.6, 'เกียร์ไม่จับ', 'รอบสูง รถไม่วิ่ง'],
+          ['Torque converter', 0.5, 'TC slip', 'รถวิ่งช้า']
+        ] },
+      { id:'driveline_clunk', label:'เสียงตึงตอนออกตัว',
+        parts:[
+          ['Flex disc / ยอยกลาง', 0.7, 'ยางขาด', 'เสียงตึง/สั่น'],
+          ['Center bearing', 0.7, 'ลูกปืนเพลากลาง', 'เสียงหวีด/สั่น'],
+          ['ยางหูเกียร์/เครื่อง', 0.6, 'แตกร้าว', 'เครื่องสั่นมาก']
+        ] }
+    ]
+  },
+  ac: {
+    title: '❄️ แอร์',
+    items: [
+      { id:'not_cold', label:'แอร์ไม่เย็น',
+        parts:[
+          ['คอมเพรสเซอร์แอร์', 0.6, 'คลัตช์ไม่จับ', 'เย็นช่วงแรก'],
+          ['น้ำยาแอร์ขาด', 0.5, 'รั่วในระบบ', 'เย็นน้อยลงเรื่อย ๆ'],
+          ['คอนเดนเซอร์', 0.5, 'รั่ว/ครีบหัก', 'เย็นน้อยตอนรถติด'],
+          ['ดรายเออร์', 0.4, 'ตันจากความชื้น', 'แอร์ไม่เย็นทันที']
+        ] },
+      { id:'ac_noise', label:'แอร์มีเสียงดัง',
+        parts:[
+          ['คอมเพรสเซอร์แอร์', 0.7, 'ลูกปืน/เพลาคลายตัว', 'เสียงเฉพาะตอนเปิดแอร์'],
+          ['คลัตช์คอมแอร์', 0.6, 'คลัตช์สึก', 'เสียงเฉพาะตอนแอร์ทำงาน']
+        ] },
+      { id:'blower', label:'พัดลมแอร์ไม่หมุน/หมุนช้า',
+        parts:[
+          ['Blower motor', 0.8, 'มอเตอร์พัดลม', 'พัดลมไม่หมุนเลย'],
+          ['Blower regulator', 0.7, 'หมุนแค่บางความเร็ว', 'หมุนเฉพาะแรงสุด']
+        ] },
+      { id:'ac_smell', label:'แอร์มีกลิ่น',
+        parts:[
+          ['Cabin filter', 0.7, 'หมดอายุ', 'กลิ่นอับ'],
+          ['Evaporator (เชื้อรา)', 0.5, 'น้ำยาทำความสะอาด', 'กลิ่นอับ ราดำ']
+        ] }
+    ]
+  },
+  body: {
+    title: '🚪 ภายใน / ตัวถัง',
+    items: [
+      { id:'sunroof', label:'ซันรูฟติด/รั่ว',
+        parts:[
+          ['Sunroof motor', 0.6, 'มอเตอร์ติดขัด', 'ฟังเสียงมอเตอร์'],
+          ['ราง/เฟรมซันรูฟ', 0.6, 'รางหัก/ตัน', 'น้ำรั่ว'],
+          ['ท่อระบายน้ำ (drain tube)', 0.7, 'อุดตัน — น้ำรั่วเข้าห้องโดยสาร', 'น้ำขังที่พรม']
+        ] },
+      { id:'seat', label:'เบาะปรับไฟฟ้าเสีย',
+        parts:[
+          ['Seat motor', 0.7, 'มอเตอร์ปรับเบาะ', 'ไม่ขยับ'],
+          ['Seat module / wiring', 0.4, 'ปลั๊กใต้เบาะ', 'หลายฟังก์ชันเสีย']
+        ] },
+      { id:'roof_lining', label:'ผ้าหลังคาหลุด/ห้อย (W140)',
+        parts:[
+          ['Headliner reglue', 1.0, 'W140 classic — กาวเสื่อม', 'ต้องเปลี่ยนผ้า/กาวใหม่']
+        ] },
+      { id:'wood_trim', label:'ลายไม้แตก/ลอก (W140)',
+        parts:[
+          ['Wood trim refurbish', 1.0, 'W140 classic — แล็คเกอร์เสื่อม', 'ต้องเลคเกอร์ใหม่']
+        ] },
+      { id:'door_handle', label:'มือเปิดประตู/Keyless ติด',
+        parts:[
+          ['Keyless handle', 0.8, 'รถ 2005+', 'ปลดล็อกแต่เปิดไม่ได้']
+        ] }
+    ]
+  }
+};
+
+const ENGINE_WEAK_POINTS = {
+  'M104': { label: 'M104 (6 สูบเรียง)', points: [
+    { name: 'Wiring harness ห้องเครื่อง', desc: 'ฉนวนสายไฟแข็งกรอบ ทำให้สายไฟลัด — ปัญหาคลาสสิคของ M104 ปี 1992-1995 อาการ: รถสะดุด, สตาร์ทไม่ติด, ไฟ Check Engine กระพริบ' },
+    { name: 'Distributor cap & rotor', desc: 'แตกร้าว ความชื้นเข้า ทำให้รถสะดุดตอนฝน — แนะนำเช็คทุก 60K km' },
+    { name: 'Head gasket (ปะเก็นฝาสูบ)', desc: 'มักรั่วน้ำเข้าห้องเผาไหม้ตอนอายุ 200K+ km — สังเกตน้ำหายผิดปกติ ควันขาว' },
+    { name: 'Crankshaft position sensor', desc: 'เซ็นเซอร์เสื่อมตามอุณหภูมิ — รถดับตอนเครื่องร้อน สตาร์ทไม่ติดต้องรอเย็น' },
+    { name: 'Idle control valve', desc: 'รอบเดินเบาไม่นิ่ง ดับตอนติดเกียร์ — ทำความสะอาดได้บางครั้งช่วยได้' },
+    { name: 'โซ่ไทม์ + tensioner', desc: 'ที่อายุ 150K+ km ควรเช็ค — ฟังเสียงคลิกตอนสตาร์ทเย็น' }
+  ] },
+  'M119': { label: 'M119 (V8 4.2/5.0)', points: [
+    { name: 'Wiring harness ห้องเครื่อง (สำคัญที่สุด)', desc: 'ปัญหาคลาสสิค M119 — ฉนวนสายไฟกรอบ ทำให้รถสตาร์ทไม่ติด/ดับเป็นพัก ๆ ต้องเปลี่ยนทั้งชุด' },
+    { name: 'Distributor cap & rotor x2', desc: 'V8 มี 2 ฝั่ง ต้องเช็คทั้งสอง — ความชื้น/แตกหักเป็นปัญหาบ่อย' },
+    { name: 'Head bolt (M119 ก่อนปี 1993)', desc: 'น็อตฝาสูบเหล็กไม่ดี ทำให้ปะเก็นฝาสูบรั่ว — รุ่นหลังใช้น็อตใหม่' },
+    { name: 'โซ่ไทม์ V8 (timing chain)', desc: 'ที่ 150K+ km มักมีเสียง — ตรวจ tensioner + guide rail พร้อมกัน' },
+    { name: 'Engine mount', desc: 'ยางเครื่องฉีกขาด — เครื่องสั่นมาก รู้สึกที่พวงมาลัย' },
+    { name: 'Power steering pump', desc: 'ปั๊มพวงมาลัยรั่ว — น้ำมันสีแดงหยดใต้เครื่อง' }
+  ] },
+  'M120': { label: 'M120 (V12 6.0)', points: [
+    { name: 'Wiring harness 2 ฝั่ง', desc: 'V12 มีระบบไฟแยก 2 ฝั่ง ทั้งคู่มีปัญหาฉนวนเสื่อม — เปลี่ยนเป็นชุดใหม่' },
+    { name: 'MAS (Mass Air Sensor) 2 ตัว', desc: 'ต้อง balance กันทั้งสองฝั่ง ถ้าตัวใดตัวหนึ่งเพี้ยน รถเดินไม่เรียบ' },
+    { name: 'Distributor cap 2 ฝั่ง', desc: 'V12 มี 2 distributor ต้องเช็คคู่กัน' },
+    { name: 'โซ่ไทม์ + tensioner', desc: 'ที่ 100K+ km ควรเช็ค — V12 มีหลายชุดโซ่' },
+    { name: 'Engine mount V12', desc: 'น้ำหนักเครื่องเยอะ ยางเครื่องเสื่อมไว — เครื่องสั่นรุนแรง' }
+  ] },
+  'M113K': { label: 'M113K (V8 Supercharged)', points: [
+    { name: 'Supercharger coupler', desc: 'ลูกยางเชื่อมสายพาน supercharger เสื่อม — เสียงดัง/หมดแรงอัด' },
+    { name: 'Intercooler pump', desc: 'ปั๊มน้ำเย็น supercharger — ถ้าไม่ทำงาน supercharger จะร้อน' },
+    { name: 'Spark plug + คอยล์', desc: 'M113K โหลดสูง — หัวเทียน/คอยล์อายุสั้นกว่า' }
+  ] },
+  'M113': { label: 'M113 (V8 5.0/5.5)', points: [
+    { name: 'Engine mount', desc: 'ยางเครื่อง V8 รับน้ำหนักเยอะ เสื่อมไว — เครื่องสั่น' },
+    { name: 'Crankshaft position sensor', desc: 'รถดับตอนร้อน — เปลี่ยนเซ็นเซอร์ช่วยได้' },
+    { name: 'Air pump (secondary)', desc: 'ปั๊มอากาศเสีย — ไฟ Check Engine ขึ้น P0410' }
+  ] },
+  'M111': { label: 'M111 (4 สูบ)', points: [
+    { name: 'Crankshaft position sensor', desc: 'พบบ่อยที่สุดของ M111 — รถดับตอนร้อน' },
+    { name: 'MAF sensor', desc: 'รถเร่งไม่ขึ้น เดินเบาไม่นิ่ง' },
+    { name: 'Head gasket', desc: 'ที่อายุเยอะ น้ำเข้าห้องเผาไหม้ได้' }
+  ] },
+  'M112': { label: 'M112 (V6)', points: [
+    { name: 'Air pump (secondary)', desc: 'ปั๊มอากาศ — ไฟ Check Engine P0410' },
+    { name: 'คอยล์จุดระเบิด', desc: 'อายุ 100K+ km มักเสีย — เครื่องสั่น' },
+    { name: 'Engine mount', desc: 'ยางเครื่องเสื่อม — สั่นที่พวงมาลัย' }
+  ] }
+};
+
+const state = {
+  selectedSymptoms: new Set(),
+  followupAnswers: {},
+  caseNo: null,
+  formData: null
+};
+
+function renderSymptoms() {
+  const container = document.getElementById('symptomGroups');
+  let html = '';
+  Object.keys(SYMPTOMS).forEach(key => {
+    const group = SYMPTOMS[key];
+    html += `<div class="symptom-group">
+      <div class="symptom-group-title">${group.title}</div>
+      <div class="chips">
+        ${group.items.map(item => `
+          <button class="chip ${item.urgent ? 'urgent' : ''}" data-id="${item.id}" onclick="toggleSymptom(this)">${item.label}</button>
+        `).join('')}
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function toggleSymptom(btn) {
+  const id = btn.dataset.id;
+  if (state.selectedSymptoms.has(id)) {
+    state.selectedSymptoms.delete(id);
+    btn.classList.remove('selected');
+    Object.keys(state.followupAnswers).forEach(k => {
+      if (k.startsWith(id + '_')) delete state.followupAnswers[k];
+    });
+  } else {
+    state.selectedSymptoms.add(id);
+    btn.classList.add('selected');
+  }
+  updateUrgencyBanner();
+  renderFollowups();
+}
+
+function findSymptom(sid) {
+  let found = null;
+  Object.values(SYMPTOMS).forEach(g => {
+    g.items.forEach(s => { if (s.id === sid) found = s; });
+  });
+  return found;
+}
+
+function renderFollowups() {
+  const section = document.getElementById('followupSection');
+  const container = document.getElementById('followupQuestions');
+  const allQuestions = [];
+  state.selectedSymptoms.forEach(sid => {
+    const s = findSymptom(sid);
+    if (s && s.followups) {
+      s.followups.forEach((fu, idx) => {
+        allQuestions.push({ sid, idx, q: fu.q, opts: fu.opts, label: s.label });
+      });
+    }
+  });
+  if (allQuestions.length === 0) { section.classList.remove('show'); return; }
+  section.classList.add('show');
+  container.innerHTML = allQuestions.map(item => {
+    const key = `${item.sid}_${item.idx}`;
+    return `<div class="followup-q">
+      <div class="followup-q-text">${item.q} <span style="color:#6e6e73; font-weight:400; font-size:11px;">(${item.label})</span></div>
+      <div class="followup-options">
+        ${item.opts.map(opt => `
+          <button class="followup-opt ${state.followupAnswers[key] === opt ? 'selected' : ''}"
+            onclick="selectFollowup('${key}', '${opt.replace(/'/g, "\\'")}')">${opt}</button>
+        `).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function selectFollowup(key, opt) {
+  state.followupAnswers[key] = opt;
+  renderFollowups();
+}
+
+function updateUrgencyBanner() {
+  const banner = document.getElementById('urgencyBanner');
+  const text = document.getElementById('urgencyText');
+  const icon = document.getElementById('urgencyIcon');
+  let hasUrgent = false;
+  let count = 0;
+  state.selectedSymptoms.forEach(sid => {
+    const s = findSymptom(sid);
+    if (s?.urgent) hasUrgent = true;
+    count++;
+  });
+  if (hasUrgent) {
+    banner.className = 'urgency-banner show high';
+    icon.textContent = '🚨';
+    text.innerHTML = '<strong>ไม่ควรขับรถ</strong> — ขอแนะนำให้ติดต่อร้านโดยเร็วที่สุด อาการที่คุณเลือกอาจเป็นอันตรายในการขับขี่';
+  } else if (count >= 3) {
+    banner.className = 'urgency-banner show medium';
+    icon.textContent = '⚠️';
+    text.innerHTML = 'อาการหลายอย่างที่เลือก — ทีมเราจะรีบติดต่อกลับและประเมินให้';
+  } else {
+    banner.className = 'urgency-banner';
+  }
+}
+
+function analyzeSymptoms() {
+  const partMap = {};
+  state.selectedSymptoms.forEach(sid => {
+    const s = findSymptom(sid);
+    if (s && s.parts) {
+      s.parts.forEach(p => {
+        const [name, conf, checkpoint, related] = p;
+        if (!partMap[name]) partMap[name] = { name, conf: 0, sources: [], checkpoint, related };
+        partMap[name].conf = 1 - (1 - partMap[name].conf) * (1 - conf);
+        partMap[name].sources.push(s.label);
+      });
+    }
+  });
+  return Object.values(partMap)
+    .filter(p => p.conf >= 0.3)
+    .sort((a, b) => b.conf - a.conf)
+    .slice(0, 10);
+}
+
+function getEngineWeakPoints() {
+  const engine = document.getElementById('engine').value;
+  if (!engine) return null;
+  const key = Object.keys(ENGINE_WEAK_POINTS).find(k => engine.includes(k));
+  return key ? ENGINE_WEAK_POINTS[key] : null;
+}
+
+function renderAnalysis(targetId, weakPointsTargetId) {
+  const target = document.getElementById(targetId);
+  const weakTarget = weakPointsTargetId ? document.getElementById(weakPointsTargetId) : null;
+  if (state.selectedSymptoms.size === 0) {
+    target.innerHTML = '<p style="font-size:13px; color:#6e6e73;">ยังไม่ได้เลือกอาการ</p>';
+    if (weakTarget) weakTarget.innerHTML = '';
+    return;
+  }
+  const parts = analyzeSymptoms();
+  const symptomLabels = [];
+  state.selectedSymptoms.forEach(sid => {
+    const s = findSymptom(sid);
+    if (s) symptomLabels.push(s.label);
+  });
+  let html = `<h3>อาการที่คุณแจ้ง (${symptomLabels.length})</h3>
+    <p style="font-size:13px; color:#1d1d1f; margin-bottom:12px;">${symptomLabels.join(' • ')}</p>`;
+  if (parts.length > 0) {
+    html += `<h3>🎯 อะไหล่ที่ "อาจเกี่ยวข้อง" — ควรตรวจเพิ่ม</h3><ul class="result-list">`;
+    parts.forEach(p => {
+      const pct = Math.round(p.conf * 100);
+      const tag = pct >= 75 ? '<span class="confidence-tag conf-high">น่าจะใช่</span>' :
+                  pct >= 50 ? '<span class="confidence-tag conf-mid">เป็นไปได้</span>' :
+                              '<span class="confidence-tag conf-low">ตรวจเพิ่ม</span>';
+      html += `<li>
+        <div class="part-row">
+          <span class="part-name">${p.name}</span>
+          ${tag}
+        </div>
+        ${p.checkpoint ? `<div class="part-detail"><span class="label">📍 จุดที่ตรวจ:</span> ${p.checkpoint}</div>` : ''}
+        ${p.related ? `<div class="part-detail"><span class="label">⚠️ อาการคู่:</span> ${p.related}</div>` : ''}
+      </li>`;
+    });
+    html += '</ul>';
+  } else {
+    html += '<p style="font-size:13px; color:#6e6e73;">ทีมเราจะติดต่อกลับเพื่อขอข้อมูลเพิ่มเติม</p>';
+  }
+  target.innerHTML = html;
+
+  if (weakTarget) {
+    const wp = getEngineWeakPoints();
+    if (wp) {
+      let wpHtml = `<div class="weak-points-box">
+        <h3>⚠️ จุดอ่อนเฉพาะของเครื่อง ${wp.label}</h3>`;
+      wp.points.forEach(pt => {
+        wpHtml += `<div class="weak-point-item">
+          <div class="weak-point-name">${pt.name}</div>
+          <div class="weak-point-desc">${pt.desc}</div>
+        </div>`;
+      });
+      wpHtml += '</div>';
+      weakTarget.innerHTML = wpHtml;
+    } else {
+      weakTarget.innerHTML = '';
+    }
+  }
+}
+
+function goStep(n) {
+  if (n === 2) {
+    if (!document.getElementById('body').value) { showToast('กรุณาเลือกรุ่นรถ'); return; }
+    if (!document.getElementById('year').value) { showToast('กรุณาใส่ปีรถ'); return; }
+  }
+  if (n === 3) {
+    if (state.selectedSymptoms.size === 0) { showToast('กรุณาเลือกอาการอย่างน้อย 1 ข้อ'); return; }
+    renderAnalysis('analysisResult', 'weakPointsContainer');
+  }
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+  document.getElementById('progressFill').style.width = (n * 33.33) + '%';
+  document.getElementById('progressText').textContent = `ขั้นที่ ${n} จาก 3 — ${['ข้อมูลรถของคุณ','อาการที่พบ','สรุปและติดต่อ'][n-1]}`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function generateCaseNo() {
+  const d = new Date();
+  const ymd = d.getFullYear().toString().slice(-2) + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+  const rnd = Math.floor(1000 + Math.random() * 9000);
+  return `MC-${ymd}-${rnd}`;
+}
+
+function collectFormData() {
+  const symptomLabels = [];
+  state.selectedSymptoms.forEach(sid => {
+    const s = findSymptom(sid);
+    if (s) symptomLabels.push(s.label);
+  });
+  const parts = analyzeSymptoms();
+  let urgency = 'LOW';
+  state.selectedSymptoms.forEach(sid => {
+    const s = findSymptom(sid);
+    if (s?.urgent) urgency = 'HIGH';
+  });
+  if (urgency === 'LOW' && state.selectedSymptoms.size >= 3) urgency = 'MEDIUM';
+
+  const followupText = [];
+  Object.keys(state.followupAnswers).forEach(key => {
+    const lastUnderscore = key.lastIndexOf('_');
+    const sid = key.substring(0, lastUnderscore);
+    const idx = parseInt(key.substring(lastUnderscore + 1));
+    const s = findSymptom(sid);
+    if (s && s.followups && s.followups[idx]) {
+      followupText.push(`${s.followups[idx].q} ${state.followupAnswers[key]}`);
+    }
+  });
+
+  const wp = getEngineWeakPoints();
+  const weakPointsText = wp ? wp.points.map(p => p.name).join(', ') : '';
+
+  return {
+    caseNo: state.caseNo,
+    timestamp: new Date().toISOString(),
+    customer: {
+      name: document.getElementById('name').value,
+      phone: document.getElementById('phone').value,
+      lineId: document.getElementById('lineid').value,
+      province: document.getElementById('province').value
+    },
+    vehicle: {
+      body: document.getElementById('body').value,
+      year: document.getElementById('year').value,
+      engine: document.getElementById('engine').value,
+      transmission: document.getElementById('transmission').value,
+      mileage: document.getElementById('mileage').value
+    },
+    symptoms: symptomLabels,
+    followups: followupText,
+    notes: document.getElementById('notes').value + (followupText.length ? '\n\n[Follow-up]\n' + followupText.join('\n') : '') + (weakPointsText ? '\n\n[จุดอ่อนเครื่องที่ระบบเตือน]\n' + weakPointsText : ''),
+    urgency: urgency,
+    suggestedParts: parts.map(p => `${p.name} (${Math.round(p.conf * 100)}%)`),
+    engineWeakPoints: weakPointsText,
+    source: 'web_form_v2'
+  };
+}
+
+async function submitForm() {
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  if (!name) { showToast('กรุณาใส่ชื่อ'); return; }
+  if (!phone) { showToast('กรุณาใส่เบอร์โทร'); return; }
+  if (!/^[0-9+\-\s]{9,}$/.test(phone)) { showToast('เบอร์โทรไม่ถูกต้อง'); return; }
+  state.caseNo = generateCaseNo();
+  state.formData = collectFormData();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>กำลังส่ง...';
+  try {
+    if (CONFIG.GOOGLE_SCRIPT_URL && CONFIG.GOOGLE_SCRIPT_URL.startsWith('https://')) {
+      await fetch(CONFIG.GOOGLE_SCRIPT_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(state.formData)
+      });
+    }
+    document.getElementById('caseNoDisplay').textContent = state.caseNo;
+    renderAnalysis('finalSummary', 'finalWeakPoints');
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('stepDone').classList.add('active');
+    document.getElementById('progressBar').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    console.error(err);
+    showToast('เกิดข้อผิดพลาด — โปรดติดต่อร้านทาง LINE โดยตรง');
+    btn.disabled = false;
+    btn.textContent = 'ส่งเคสและติดต่อร้าน';
+  }
+}
+
+function buildLineMessage() {
+  const d = state.formData;
+  if (!d) return '';
+  const lines = [];
+  lines.push(`เคส ${state.caseNo}`);
+  lines.push(`สวัสดีครับ ผม ${d.customer.name}`);
+  lines.push('');
+  lines.push(`รถ: ${d.vehicle.body} ปี ${d.vehicle.year}${d.vehicle.engine ? ' / '+d.vehicle.engine : ''}`);
+  if (d.vehicle.mileage) lines.push(`ไมล์: ${Number(d.vehicle.mileage).toLocaleString()} กม.`);
+  lines.push('');
+  lines.push('อาการ:');
+  d.symptoms.forEach(s => lines.push('• ' + s));
+  if (d.followups && d.followups.length) {
+    lines.push('');
+    lines.push('ข้อมูลเพิ่มเติม:');
+    d.followups.forEach(f => lines.push('- ' + f));
+  }
+  if (d.notes) {
+    const notes = d.notes.split('\n\n[')[0];
+    if (notes) {
+      lines.push('');
+      lines.push('เพิ่มเติม: ' + notes);
+    }
+  }
+  if (d.suggestedParts && d.suggestedParts.length) {
+    lines.push('');
+    lines.push('อะไหล่ที่ระบบประเมิน:');
+    d.suggestedParts.slice(0, 5).forEach(p => lines.push('• ' + p));
+  }
+  lines.push('');
+  lines.push('ขอราคาและคำแนะนำด้วยครับ');
+  return lines.join('\n');
+}
+
+function openLine() {
+  const msg = buildLineMessage();
+  const encoded = encodeURIComponent(msg);
+  const url = `https://line.me/R/oaMessage/${CONFIG.LINE_OA_ID}/?${encoded}`;
+  window.open(url, '_blank');
+}
+
+function copyCaseNo() {
+  const text = state.caseNo + '\n' + buildLineMessage();
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('คัดลอกเรียบร้อย — วางใน LINE ได้เลย');
+  }).catch(() => {
+    showToast('คัดลอกไม่สำเร็จ');
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+renderSymptoms();
+</script>
+
+</body>
+</html>
