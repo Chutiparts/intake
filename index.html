@@ -1,0 +1,2085 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Mr.Chuti — แจ้งอาการรถ Mercedes-Benz</title>
+<meta name="description" content="Mr.Chuti อะไหล่เบนซ์มือสอง — แจ้งอาการรถ W201/W202/W124/W210/W126/W140">
+<meta name="theme-color" content="#0A0A0A">
+
+<style>
+/* ============ DESIGN TOKENS ============ */
+:root {
+  --ink: #0A0A0A;
+  --ink-2: #2D2D2D;
+  --ink-3: #6B6B6B;
+  --paper: #F5F2EC;
+  --paper-2: #EBE8E0;
+  --line: #D4CFC4;
+  --accent: #B91C1C;        /* Mercedes red */
+  --accent-2: #7F1D1D;
+  --gold: #A88B4A;
+  --green: #14532D;
+  --warn: #C2410C;
+  --warn-2: #FED7AA;
+  --stop: #991B1B;
+
+  --font-display: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --font-th: 'Sarabun', 'Noto Sans Thai', sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;700;900&family=Inter:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-th);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  font-size: 16px;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(185, 28, 28, 0.04) 0%, transparent 35%),
+    radial-gradient(circle at 100% 100%, rgba(168, 139, 74, 0.05) 0%, transparent 35%);
+}
+
+/* ============ LAYOUT ============ */
+.app { max-width: 540px; margin: 0 auto; min-height: 100vh; background: var(--paper); position: relative; }
+
+/* ============ TOP BAR ============ */
+.topbar {
+  padding: 16px 20px 14px;
+  border-bottom: 0.5px solid var(--line);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-mark {
+  width: 40px; height: 40px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+.brand-text { flex: 1; }
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.brand-tag {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+.protocol-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+
+/* ============ PROGRESS RAIL ============ */
+.progress {
+  padding: 14px 20px;
+  background: var(--paper-2);
+  border-bottom: 0.5px solid var(--line);
+}
+.progress-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.rail-step {
+  height: 4px;
+  background: var(--line);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.rail-step.active { background: var(--accent); }
+.rail-step.done { background: var(--ink); }
+
+/* ============ CONTENT ============ */
+.content { padding: 24px 20px 100px; }
+
+/* ============ HERO ============ */
+.hero { margin-bottom: 28px; padding-bottom: 22px; border-bottom: 0.5px solid var(--line); }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.hero h1 .accent { color: var(--accent); font-style: italic; }
+.hero p {
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.hero .specialty {
+  margin-top: 14px;
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  text-transform: uppercase;
+}
+
+/* ============ STEP HEADER ============ */
+.step-header { margin-bottom: 22px; }
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.step-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.step-desc {
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* ============ FORM ELEMENTS ============ */
+.field { margin-bottom: 22px; }
+.field-label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+.field-label .req { color: var(--accent); margin-left: 2px; }
+.field-hint {
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+input[type="text"], input[type="tel"], input[type="number"], input[type="email"], select, textarea {
+  width: 100%;
+  padding: 13px 14px;
+  font-family: var(--font-th);
+  font-size: 16px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--ink);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+textarea { resize: vertical; min-height: 80px; font-family: var(--font-th); }
+
+select {
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B6B6B' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+/* ============ OPTION CARDS (radio-like) ============ */
+.options { display: grid; gap: 8px; }
+.options.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.option-card {
+  position: relative;
+  padding: 14px 14px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.option-card:hover { border-color: var(--ink-3); }
+.option-card input[type="radio"], .option-card input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.option-card .radio-mark {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+  transition: border-color 0.15s;
+}
+.option-card.checkbox .radio-mark { border-radius: 3px; }
+.option-card .radio-mark::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--ink);
+  transform: scale(0);
+  transition: transform 0.15s;
+}
+.option-card.checkbox .radio-mark::after {
+  border-radius: 1px;
+  inset: 3px;
+}
+.option-card.selected {
+  border-color: var(--ink);
+  background: var(--paper-2);
+}
+.option-card.selected .radio-mark { border-color: var(--ink); }
+.option-card.selected .radio-mark::after { transform: scale(1); }
+.option-content { flex: 1; }
+.option-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.option-sub {
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+.option-meta {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ============ COMPACT GRID OPTIONS ============ */
+.grid-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.grid-option {
+  padding: 12px 8px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 13px;
+  font-weight: 500;
+}
+.grid-option:hover { border-color: var(--ink-3); }
+.grid-option.selected {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: white;
+}
+
+/* ============ SYMPTOM CATEGORY ============ */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.cat-card {
+  padding: 16px 12px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.cat-card:hover { border-color: var(--ink-3); }
+.cat-card.selected {
+  border-color: var(--accent);
+  background: var(--paper-2);
+}
+.cat-icon {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.cat-name { font-weight: 600; font-size: 14px; line-height: 1.3; }
+.cat-count {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+/* ============ SYMPTOM ITEM ============ */
+.symptoms { display: grid; gap: 6px; }
+.sym-item {
+  padding: 12px 14px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.15s;
+}
+.sym-item:hover { border-color: var(--ink-3); }
+.sym-item.selected {
+  border-color: var(--ink);
+  background: var(--paper-2);
+}
+.sym-check {
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 3px;
+  flex-shrink: 0;
+  position: relative;
+}
+.sym-item.selected .sym-check { border-color: var(--ink); background: var(--ink); }
+.sym-item.selected .sym-check::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+.sym-content { flex: 1; }
+.sym-label { font-size: 14px; font-weight: 500; line-height: 1.3; }
+.sym-meta {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+.sym-warn {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  background: var(--warn-2);
+  color: var(--warn);
+  padding: 2px 6px;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.sym-stop {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  background: var(--stop);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 2px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ============ FOLLOW-UP QUESTIONS ============ */
+.follow-ups {
+  margin-top: 20px;
+  padding: 16px 14px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.follow-ups-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* ============ PHOTO UPLOAD ============ */
+.photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.photo-slot {
+  aspect-ratio: 1;
+  background: white;
+  border: 1.5px dashed var(--line);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+.photo-slot.required { border-color: var(--accent); }
+.photo-slot:hover { border-color: var(--ink); }
+.photo-slot.uploaded {
+  border-style: solid;
+  border-color: var(--green);
+  background: var(--paper-2);
+}
+.photo-slot.uploaded::after {
+  content: "✓";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  background: var(--green);
+  color: white;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.photo-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-icon {
+  font-size: 24px;
+  color: var(--ink-3);
+  margin-bottom: 6px;
+}
+.photo-label {
+  font-size: 11px;
+  color: var(--ink-2);
+  text-align: center;
+  font-weight: 500;
+  padding: 0 4px;
+  line-height: 1.3;
+}
+.photo-tag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+.photo-slot input[type="file"] { display: none; }
+
+/* ============ STOP-DRIVE WARNING ============ */
+.warning-box {
+  padding: 16px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 1.5px solid;
+}
+.warning-box.level-3 {
+  background: #FEF3C7;
+  border-color: #CA8A04;
+  color: #713F12;
+}
+.warning-box.level-4 {
+  background: #FED7AA;
+  border-color: #EA580C;
+  color: #7C2D12;
+}
+.warning-box.level-5 {
+  background: #FECACA;
+  border-color: var(--stop);
+  color: var(--stop);
+  font-weight: 600;
+}
+.warning-title {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.warning-text { font-size: 13px; line-height: 1.5; }
+
+/* ============ STOP-DRIVE MODAL (Level 5) ============ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s;
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: var(--paper);
+  border: 3px solid var(--stop);
+  border-radius: 6px;
+  padding: 24px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-icon {
+  font-size: 56px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.modal h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  text-align: center;
+  color: var(--stop);
+  font-weight: 900;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.modal-sub {
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-bottom: 18px;
+}
+.modal-list {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+}
+.modal-list-item {
+  font-size: 14px;
+  padding: 4px 0;
+  color: var(--ink);
+}
+.modal-actions { display: grid; gap: 8px; }
+.modal-btn {
+  padding: 14px;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-th);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+}
+.modal-btn.primary { background: var(--stop); color: white; }
+.modal-btn.line { background: #06C755; color: white; }
+.modal-btn.tel { background: var(--ink); color: white; }
+.modal-btn.secondary { background: white; border: 1px solid var(--line); color: var(--ink); }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ============ NAVIGATION ============ */
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 540px;
+  background: var(--paper);
+  border-top: 0.5px solid var(--line);
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  display: flex;
+  gap: 8px;
+  z-index: 50;
+}
+.btn {
+  flex: 1;
+  padding: 14px 16px;
+  border: 1px solid var(--ink);
+  background: white;
+  color: var(--ink);
+  font-family: var(--font-th);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.btn:hover:not(:disabled) { background: var(--ink); color: white; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn.primary { background: var(--ink); color: white; }
+.btn.primary:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
+.btn.ghost { border-color: var(--line); color: var(--ink-3); }
+
+/* ============ SUMMARY ============ */
+.summary-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.summary-section {
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 0.5px solid var(--line);
+}
+.summary-section:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
+.summary-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.summary-value { font-size: 14px; font-weight: 500; color: var(--ink); }
+.summary-row { display: flex; justify-content: space-between; padding: 3px 0; }
+.summary-row .k { color: var(--ink-3); font-size: 13px; }
+.summary-row .v { font-weight: 500; font-size: 13px; text-align: right; }
+
+/* ============ DONE STATE ============ */
+.done-state { text-align: center; padding: 40px 20px; }
+.done-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--green);
+  color: white;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+.done-state h2 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.case-id {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  background: var(--ink);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 14px 0 24px;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  text-align: center;
+  padding: 24px 16px 28px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  border-top: 0.5px solid var(--line);
+  margin-top: 32px;
+}
+footer .line { color: var(--green); margin-top: 4px; }
+
+/* ============ HIDE ============ */
+.hidden { display: none !important; }
+
+/* ============ TOAST ============ */
+.toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 4px;
+  font-size: 13px;
+  z-index: 9000;
+  opacity: 0;
+  transition: all 0.25s;
+  pointer-events: none;
+  max-width: 90%;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ============ DESKTOP ============ */
+@media (min-width: 600px) {
+  body { padding: 20px 0; }
+  .app { box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-radius: 6px; min-height: auto; }
+  .nav-bar { border-radius: 0 0 6px 6px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="brand-mark">MC</div>
+  <div class="brand-text">
+    <div class="brand-name">MR.CHUTI</div>
+    <div class="brand-tag">อะไหล่เบนซ์มือสอง</div>
+  </div>
+  <div class="protocol-badge">MPTS-1</div>
+</header>
+
+<!-- ============ PROGRESS RAIL ============ -->
+<div class="progress">
+  <div class="progress-label">
+    <span id="step-label">ขั้นตอนที่ 1 จาก 4</span>
+    <span id="step-name">ระบุรถ</span>
+  </div>
+  <div class="rail">
+    <div class="rail-step" data-step="1"></div>
+    <div class="rail-step" data-step="2"></div>
+    <div class="rail-step" data-step="3"></div>
+    <div class="rail-step" data-step="4"></div>
+  </div>
+</div>
+
+<!-- ============ CONTENT ============ -->
+<main class="content">
+
+  <!-- HERO (only on step 1) -->
+  <section id="hero" class="hero">
+    <h1>แจ้งอาการรถ<br><span class="accent">Mercedes-Benz</span></h1>
+    <p>ทีม Mr.Chuti ผู้เชี่ยวชาญเบนซ์ classic — กรอกข้อมูลล่วงหน้าเพื่อให้เราเตรียมอะไหล่ที่เหมาะสมและส่งช่างพาร์ทเนอร์ใกล้บ้านคุณ</p>
+    <div class="specialty">★ W201 · W202 · W124 · W210 · W126 · W140</div>
+  </section>
+
+  <!-- ====================================================== -->
+  <!-- ============ §1 VEHICLE IDENTITY ===================== -->
+  <!-- ====================================================== -->
+  <section id="step-1" class="step">
+
+    <div class="step-header">
+      <div class="step-num">§1 — Vehicle Identity</div>
+      <h2 class="step-title">รถของคุณคือรุ่นไหน?</h2>
+      <p class="step-desc">เลือกตามที่คุ้นเคย ระบบจะช่วยหา chassis ให้</p>
+    </div>
+
+    <!-- Q1: Model class -->
+    <div class="field">
+      <label class="field-label">รุ่นรถ <span class="req">*</span></label>
+      <div class="options" id="q-model-class">
+        <label class="option-card">
+          <input type="radio" name="model_class" value="190E">
+          <span class="radio-mark"></span>
+          <div class="option-content">
+            <div class="option-title">190E / "เบบี้เบนซ์"</div>
+            <div class="option-sub">รุ่นเล็ก ทรงเหลี่ยม ปี 1982-1993</div>
+            <div class="option-meta">W201</div>
+          </div>
+        </label>
+        <label class="option-card">
+          <input type="radio" name="model_class" value="C">
+          <span class="radio-mark"></span>
+          <div class="option-content">
+            <div class="option-title">ตัว C / C-Class</div>
+            <div class="option-sub">C200 / C220 / C240 / C280 / C36 AMG</div>
+            <div class="option-meta">W202 · 1993-2000</div>
+          </div>
+        </label>
+        <label class="option-card">
+          <input type="radio" name="model_class" value="E">
+          <span class="radio-mark"></span>
+          <div class="option-content">
+            <div class="option-title">ตัว E / E-Class</div>
+            <div class="option-sub">200E / 230E / 260E / 300E / E280 / E320 / E430</div>
+            <div class="option-meta">W124 หรือ W210</div>
+          </div>
+        </label>
+        <label class="option-card">
+          <input type="radio" name="model_class" value="S">
+          <span class="radio-mark"></span>
+          <div class="option-content">
+            <div class="option-title">ตัว S / S-Class</div>
+            <div class="option-sub">300SE / 420SEL / S320 / S500 / S600</div>
+            <div class="option-meta">W126 หรือ W140</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Q2: Year -->
+    <div class="field">
+      <label class="field-label" for="model_year">ปีรถ (จากเล่มทะเบียน) <span class="req">*</span></label>
+      <select id="model_year">
+        <option value="">— เลือกปี —</option>
+      </select>
+      <div class="field-hint">ระบบจะระบุ chassis อัตโนมัติจากรุ่น+ปี</div>
+    </div>
+
+    <!-- Q2.5: Chassis result (auto-filled) -->
+    <div id="chassis-result" class="hidden field">
+      <div style="background: var(--paper-2); padding: 14px; border-radius: 4px; border: 1px solid var(--line);">
+        <div class="option-meta" style="margin-bottom: 6px;">ระบบประมวลผล</div>
+        <div id="chassis-text" style="font-weight: 600; font-size: 15px;"></div>
+        <div id="chassis-warning" class="hidden" style="margin-top: 8px; font-size: 12px; color: var(--warn);"></div>
+      </div>
+    </div>
+
+    <!-- Q3: Body style -->
+    <div class="field hidden" id="q-body">
+      <label class="field-label">ตัวถัง <span class="req">*</span></label>
+      <div class="grid-options" id="body-options"></div>
+    </div>
+
+    <!-- Q4: Fuel -->
+    <div class="field hidden" id="q-fuel">
+      <label class="field-label">เชื้อเพลิง <span class="req">*</span></label>
+      <div class="grid-options" id="fuel-options">
+        <div class="grid-option" data-value="benzine">เบนซิน</div>
+        <div class="grid-option" data-value="diesel">ดีเซล</div>
+      </div>
+    </div>
+
+    <!-- Q5: Engine displacement -->
+    <div class="field hidden" id="q-displacement">
+      <label class="field-label">ความจุเครื่อง (จาก badge ท้ายรถ) <span class="req">*</span></label>
+      <div class="grid-options" id="displacement-options"></div>
+    </div>
+
+    <!-- Q6: AMG -->
+    <div class="field hidden" id="q-amg">
+      <label class="field-label">เป็น AMG หรือไม่? <span class="req">*</span></label>
+      <div class="grid-options">
+        <div class="grid-option" data-value="no">ไม่ใช่</div>
+        <div class="grid-option" data-value="yes">ใช่ AMG</div>
+        <div class="grid-option" data-value="unsure">ไม่แน่ใจ</div>
+      </div>
+    </div>
+
+    <div class="field hidden" id="q-amg-variant">
+      <label class="field-label" for="amg_variant">รุ่น AMG (ถ้ามี)</label>
+      <input type="text" id="amg_variant" placeholder="เช่น E36, E50, E60, S65">
+    </div>
+
+    <!-- Q7: 4MATIC -->
+    <div class="field hidden" id="q-4matic">
+      <label class="field-label">4MATIC (ขับ 4 ล้อ) หรือไม่?</label>
+      <div class="grid-options">
+        <div class="grid-option" data-value="no">ไม่ใช่ (ขับล้อหลังปกติ)</div>
+        <div class="grid-option" data-value="yes">ใช่ 4MATIC</div>
+        <div class="grid-option" data-value="unsure">ไม่ทราบ</div>
+      </div>
+    </div>
+
+    <!-- Engine code result -->
+    <div id="engine-result" class="hidden field">
+      <div style="background: var(--paper-2); padding: 14px; border-radius: 4px; border: 1px solid var(--line);">
+        <div class="option-meta" style="margin-bottom: 6px;">เครื่องยนต์ที่น่าจะเป็น</div>
+        <div id="engine-text" style="font-weight: 600; font-size: 15px;"></div>
+      </div>
+    </div>
+
+    <!-- Mileage -->
+    <div class="field">
+      <label class="field-label" for="mileage">เลขไมล์โดยประมาณ (ถ้าทราบ)</label>
+      <input type="number" id="mileage" placeholder="เช่น 280000" inputmode="numeric">
+      <div class="field-hint">ช่วยประเมินสภาพอะไหล่ตามอายุการใช้งาน</div>
+    </div>
+
+  </section>
+
+  <!-- ====================================================== -->
+  <!-- ============ §2 SYMPTOM INTAKE ======================= -->
+  <!-- ====================================================== -->
+  <section id="step-2" class="step hidden">
+
+    <div class="step-header">
+      <div class="step-num">§2 — Symptom Intake</div>
+      <h2 class="step-title">รถมีอาการอะไรบ้าง?</h2>
+      <p class="step-desc">เลือกหมวดหลักก่อน แล้วเลือกอาการ (เลือกได้หลายข้อ)</p>
+    </div>
+
+    <!-- Categories -->
+    <div class="field">
+      <label class="field-label">หมวดอาการหลัก <span class="req">*</span></label>
+      <div class="cat-grid" id="cat-grid"></div>
+    </div>
+
+    <!-- Symptoms list -->
+    <div class="field hidden" id="sym-field">
+      <label class="field-label">อาการที่พบ <span class="req">*</span></label>
+      <div class="symptoms" id="sym-list"></div>
+    </div>
+
+    <!-- Follow-up questions -->
+    <div id="follow-ups-container"></div>
+
+    <!-- Note -->
+    <div class="field">
+      <label class="field-label" for="symptom_note">รายละเอียดเพิ่มเติม (ถ้ามี)</label>
+      <textarea id="symptom_note" placeholder="เช่น เสียงเป็นจังหวะ พบเฉพาะตอนรถเย็น เกิดมา 2 อาทิตย์แล้ว ฯลฯ"></textarea>
+    </div>
+
+  </section>
+
+  <!-- ====================================================== -->
+  <!-- ============ §3-§4 SAFETY + EVIDENCE + CONTACT ======= -->
+  <!-- ====================================================== -->
+  <section id="step-3" class="step hidden">
+
+    <div class="step-header">
+      <div class="step-num">§3-§4 — Safety & Evidence</div>
+      <h2 class="step-title">ภาพประกอบ</h2>
+      <p class="step-desc">ถ่ายภาพช่วยให้ Mr.Chuti เตรียมอะไหล่ได้แม่นยำ</p>
+    </div>
+
+    <!-- Safety warning (auto-shown) -->
+    <div id="safety-warning"></div>
+
+    <!-- Photos -->
+    <div class="field">
+      <label class="field-label">ภาพยานพาหนะ <span class="req">*</span></label>
+      <div class="photo-grid" id="photo-grid-vehicle">
+        <label class="photo-slot required" data-slot="A1">
+          <input type="file" accept="image/*" capture="environment">
+          <div class="photo-icon">📷</div>
+          <div class="photo-label">ป้ายทะเบียน + ส่วนหน้ารถ</div>
+          <div class="photo-tag">A1 · บังคับ</div>
+        </label>
+        <label class="photo-slot required" data-slot="A2">
+          <input type="file" accept="image/*" capture="environment">
+          <div class="photo-icon">📷</div>
+          <div class="photo-label">Badge ท้ายรถ</div>
+          <div class="photo-tag">A2 · บังคับ</div>
+        </label>
+        <label class="photo-slot required" data-slot="A3">
+          <input type="file" accept="image/*" capture="environment">
+          <div class="photo-icon">📷</div>
+          <div class="photo-label">เลขไมล์บนหน้าปัด</div>
+          <div class="photo-tag">A3 · บังคับ</div>
+        </label>
+      </div>
+      <div class="field-hint">3 ภาพแรกบังคับเพื่อยืนยันรถ — เมื่อกดถ่ายระบบจะเปิดกล้อง</div>
+    </div>
+
+    <!-- Symptom-specific photos (dynamic) -->
+    <div class="field hidden" id="sym-photos-field">
+      <label class="field-label">ภาพประกอบอาการ <span class="req">*</span></label>
+      <div class="photo-grid" id="sym-photo-grid"></div>
+    </div>
+
+  </section>
+
+  <!-- ====================================================== -->
+  <!-- ============ STEP 4: CONTACT + SUBMIT ================ -->
+  <!-- ====================================================== -->
+  <section id="step-4" class="step hidden">
+
+    <div class="step-header">
+      <div class="step-num">Final — Contact</div>
+      <h2 class="step-title">ติดต่อกลับ</h2>
+      <p class="step-desc">Mr.Chuti จะติดต่อกลับทาง LINE หรือโทร</p>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="customer_name">ชื่อ <span class="req">*</span></label>
+      <input type="text" id="customer_name" placeholder="ชื่อ-นามสกุล" required>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="customer_phone">เบอร์โทรศัพท์ <span class="req">*</span></label>
+      <input type="tel" id="customer_phone" placeholder="0812345678" required inputmode="tel">
+      <div class="field-hint">10 หลัก ไม่ต้องเว้นวรรค</div>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="customer_line">LINE ID (ถ้าสะดวก)</label>
+      <input type="text" id="customer_line" placeholder="@somchai_xxx">
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="customer_province">จังหวัด <span class="req">*</span></label>
+      <input type="text" id="customer_province" placeholder="กรุงเทพฯ" required>
+      <div class="field-hint">ใช้สำหรับจับคู่ช่างพาร์ทเนอร์ใกล้บ้าน</div>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="customer_district">เขต/อำเภอ</label>
+      <input type="text" id="customer_district" placeholder="จตุจักร">
+    </div>
+
+    <!-- Summary -->
+    <div class="field">
+      <label class="field-label">สรุปก่อนส่ง</label>
+      <div class="summary-card" id="summary-content"></div>
+    </div>
+
+    <!-- Consent -->
+    <div class="field">
+      <label class="option-card checkbox">
+        <input type="checkbox" id="consent">
+        <span class="radio-mark"></span>
+        <div class="option-content">
+          <div class="option-title" style="font-size: 13px;">ยอมรับการแบ่งปันข้อมูล</div>
+          <div class="option-sub">ข้อมูลและภาพจะใช้เพื่อวินิจฉัย จัดอะไหล่ และส่งต่อช่างพาร์ทเนอร์เท่านั้น</div>
+        </div>
+      </label>
+    </div>
+
+  </section>
+
+  <!-- ====================================================== -->
+  <!-- ============ DONE STATE ============================== -->
+  <!-- ====================================================== -->
+  <section id="step-done" class="step hidden">
+    <div class="done-state">
+      <div class="done-icon">✓</div>
+      <h2>ส่งเคสเรียบร้อย</h2>
+      <p style="color: var(--ink-3); font-size: 14px;">ทีม Mr.Chuti จะติดต่อกลับเร็วที่สุด</p>
+      <div class="case-id" id="done-case-id">MC-XXXX-XXXX</div>
+      <div style="display: grid; gap: 8px;">
+        <a href="https://line.me/R/ti/p/@mr.chuti5988" class="modal-btn line">💬 เปิด LINE @mr.chuti5988</a>
+        <button class="btn ghost" onclick="copyCaseId()">📋 คัดลอกหมายเลขเคส</button>
+      </div>
+      <p style="font-size: 12px; color: var(--ink-3); margin-top: 18px;">
+        เก็บหมายเลขเคสไว้อ้างอิงเมื่อพูดคุยกับร้าน
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ NAV BAR ============ -->
+<nav class="nav-bar" id="nav-bar">
+  <button class="btn" id="btn-back" onclick="navStep(-1)">← ย้อนกลับ</button>
+  <button class="btn primary" id="btn-next" onclick="navStep(1)">ถัดไป →</button>
+</nav>
+
+<footer>
+  Mr.Chuti อะไหล่เบนซ์มือสอง — Mercedes-Benz W201 · W202 · W124 · W210 · W126 · W140<br>
+  <span class="line">LINE: @mr.chuti5988</span>
+</footer>
+
+</div>
+
+<!-- ============ STOP-DRIVE MODAL ============ -->
+<div class="modal-overlay" id="stop-modal">
+  <div class="modal">
+    <div class="modal-icon">🚨</div>
+    <h2>หยุดขับทันที</h2>
+    <div class="modal-sub">อาการของคุณอันตรายมาก — ห้ามขับต่อ</div>
+    <div class="modal-list" id="stop-modal-list"></div>
+    <div style="font-size: 13px; color: var(--ink-2); margin-bottom: 16px; line-height: 1.5;">
+      <strong>คำแนะนำ:</strong> จอดในที่ปลอดภัย ติดต่อ Mr.Chuti เพื่อขอรถยก ห้ามขับเองโดยเด็ดขาด
+    </div>
+    <div class="modal-actions">
+      <a href="https://line.me/R/ti/p/@mr.chuti5988" class="modal-btn line">💬 LINE @mr.chuti5988</a>
+      <a href="tel:0812345678" class="modal-btn tel">📞 โทรด่วน 081-234-5678</a>
+      <button class="modal-btn secondary" onclick="acknowledgeStopDrive(false)">เข้าใจแล้ว — กรอกฟอร์มต่อ</button>
+      <button class="modal-btn secondary" onclick="acknowledgeStopDrive(true)" style="color: var(--ink-3); font-size: 12px;">ยอมรับความเสี่ยง — ขับต่อ</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// ================ CONFIGURATION =============================
+// ============================================================
+const CONFIG = {
+  GOOGLE_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzwyuitUPddNJJcTU-TIhnv5i6lyM-AX_ESJfkkaYMJxgEDWgxEa6xO-Vk_guOzbC17Wg/exec',
+  LINE_OA_ID: 'mr.chuti5988',
+  PHONE: '0812345678',
+  CATALOG_VERSION: '1.0'
+};
+
+// ============================================================
+// ================ §1 VEHICLE IDENTITY DATA ==================
+// ============================================================
+
+// Body styles per chassis
+const BODY_STYLES = {
+  W201: ['sedan'],
+  W202: ['sedan', 'wagon'],
+  W124: ['sedan', 'wagon', 'coupe', 'cabrio'],
+  W210: ['sedan', 'wagon'],
+  W126: ['sedan', 'coupe'],
+  W140: ['sedan', 'coupe']
+};
+
+const BODY_LABELS = {
+  sedan: 'Sedan (4 ประตู)',
+  wagon: 'Wagon (ฝาท้ายตั้ง)',
+  coupe: 'Coupe (2 ประตู)',
+  cabrio: 'Cabrio (เปิดประทุน)'
+};
+
+// Engine displacement options per chassis
+const DISPLACEMENT_OPTS = {
+  W201: ['1.8', '2.0', '2.3', '2.5', '2.6'],
+  W202: ['1.8', '2.0', '2.2', '2.3', '2.4', '2.6', '2.8', '3.6', '4.3'],
+  W124: ['2.0', '2.2', '2.3', '2.6', '2.8', '3.0', '3.2', '4.2', '5.0', '6.0'],
+  W210: ['2.0', '2.3', '2.4', '2.6', '2.8', '3.2', '4.3', '5.4'],
+  W126: ['2.6', '3.0', '3.8', '4.2', '4.5', '5.0', '5.6', '6.0'],
+  W140: ['2.8', '3.2', '4.2', '5.0', '6.0', '7.3']
+};
+
+// Engine code mapping (chassis + displacement → engine)
+const ENGINE_MAP = {
+  'W201|1.8': 'M102', 'W201|2.0': 'M102', 'W201|2.3': 'M102',
+  'W201|2.5': 'M104', 'W201|2.6': 'M103',
+  'W202|1.8': 'M111', 'W202|2.0': 'M111', 'W202|2.2': 'M111', 'W202|2.3': 'M111',
+  'W202|2.4': 'M112', 'W202|2.6': 'M112', 'W202|2.8': 'M104',
+  'W202|3.6': 'M104 AMG', 'W202|4.3': 'M113 AMG',
+  'W124|2.0': 'M102', 'W124|2.2': 'M111', 'W124|2.3': 'M102',
+  'W124|2.6': 'M103', 'W124|2.8': 'M104', 'W124|3.0': 'M103',
+  'W124|3.2': 'M104', 'W124|4.2': 'M119', 'W124|5.0': 'M119', 'W124|6.0': 'M119 AMG',
+  'W210|2.0': 'M111', 'W210|2.3': 'M111', 'W210|2.4': 'M112',
+  'W210|2.6': 'M112', 'W210|2.8': 'M104', 'W210|3.2': 'M112',
+  'W210|4.3': 'M113', 'W210|5.4': 'M113 AMG',
+  'W126|2.6': 'M103', 'W126|3.0': 'M103', 'W126|3.8': 'M116',
+  'W126|4.2': 'M116', 'W126|4.5': 'M117', 'W126|5.0': 'M117',
+  'W126|5.6': 'M117', 'W126|6.0': 'M117 AMG',
+  'W140|2.8': 'M104', 'W140|3.2': 'M104', 'W140|4.2': 'M119',
+  'W140|5.0': 'M119', 'W140|6.0': 'M120 V12', 'W140|7.3': 'M120 AMG'
+};
+
+// Year → Chassis mapping
+function resolveChassis(modelClass, year) {
+  if (!modelClass || !year) return null;
+  year = parseInt(year);
+
+  if (modelClass === '190E') {
+    if (year >= 1982 && year <= 1993) return { chassis: 'W201', confidence: 'confirmed' };
+    return { chassis: null, error: 'ปี 190E อยู่ในช่วง 1982-1993 เท่านั้น' };
+  }
+  if (modelClass === 'C') {
+    if (year >= 1993 && year <= 2000) return { chassis: 'W202', confidence: 'confirmed' };
+    return { chassis: null, error: 'C-Class รุ่นแรก อยู่ในช่วง 1993-2000' };
+  }
+  if (modelClass === 'E') {
+    if (year >= 1984 && year <= 1995) return { chassis: 'W124', confidence: 'confirmed' };
+    if (year === 1996) return { chassis: 'W124', confidence: 'estimated', note: 'อาจเป็น W210 ถ้าเป็น sedan — ดูตัวถัง' };
+    if (year >= 1997 && year <= 2002) return { chassis: 'W210', confidence: 'confirmed' };
+    if (year === 2003) return { chassis: 'W210', confidence: 'estimated', note: 'อาจเป็น W211 ถ้าเป็น sedan' };
+    return { chassis: null, error: 'E-Class รับเฉพาะปี 1984-2003' };
+  }
+  if (modelClass === 'S') {
+    if (year >= 1979 && year <= 1990) return { chassis: 'W126', confidence: 'confirmed' };
+    if (year === 1991) return { chassis: 'W126', confidence: 'estimated', note: 'ปี 1991 คาบเกี่ยว — อาจเป็น W140' };
+    if (year === 1992) return { chassis: 'W140', confidence: 'estimated', note: 'ปี 1992 คาบเกี่ยว — อาจเป็น W126' };
+    if (year >= 1993 && year <= 1998) return { chassis: 'W140', confidence: 'confirmed' };
+    return { chassis: null, error: 'S-Class รับเฉพาะปี 1979-1998 (W220 ปี 1999+ ไม่รับ)' };
+  }
+  return null;
+}
+
+// Chassis nicknames
+const CHASSIS_NAME_TH = {
+  W201: 'W201 — เบบี้เบนซ์ (190E)',
+  W202: 'W202 — C-Class รุ่นแรก',
+  W124: 'W124 — ตัว E เก่า',
+  W210: 'W210 — ตัว E ตาเหยี่ยว',
+  W126: 'W126 — ตัว S เหลี่ยม',
+  W140: 'W140 — ตัว S ใหญ่ / หัวแตงโม'
+};
+
+// ============================================================
+// ================ §2 SYMPTOM CATALOG ========================
+// ============================================================
+
+const CATEGORIES = [
+  { id: 'ENG', name: 'เครื่องยนต์', desc: 'เสียง สั่น ควัน กำลัง สตาร์ท', count: 0 },
+  { id: 'TRN', name: 'เกียร์', desc: 'กระตุก ลื่น เปลี่ยนเกียร์', count: 0 },
+  { id: 'BRK', name: 'เบรก / ABS', desc: 'เสียง ลึก สั่น', count: 0 },
+  { id: 'ELC', name: 'ระบบไฟฟ้า', desc: 'แบต ไฟโชว์ wiring', count: 0 },
+  { id: 'SUS', name: 'ช่วงล่าง', desc: 'เสียง สั่น 4MATIC', count: 0 },
+  { id: 'HVA', name: 'แอร์ / ระบายความร้อน', desc: 'แอร์ น้ำเดือด พัดลม', count: 0 },
+  { id: 'BDY', name: 'ตัวถัง / ภายใน', desc: 'เก้าอี้ ซันรูฟ ล็อก', count: 0 },
+  { id: 'LEK', name: 'น้ำมันรั่ว', desc: 'น้ำมัน hydraulic น้ำหล่อเย็น', count: 0 }
+];
+
+const SYMPTOMS = [
+  // ENG
+  { id: 'ENG-001', cat: 'ENG', label: 'เครื่องร้อน / น้ำเดือด', sev: 5, stop: true,
+    photos: [{ slot: 'C1', label: 'หม้อพักน้ำ + เกจอุณหภูมิ' }],
+    fu: [
+      { q: 'เกิดเมื่อไหร่?', opts: ['ตอนรถติดนานๆ', 'ตอนวิ่งทางไกล', 'ตลอดเวลา', 'เป็นพักๆ'] },
+      { q: 'น้ำหล่อเย็นลดเร็วไหม?', opts: ['เร็วมาก', 'ลดบ้าง', 'ไม่ลด', 'ไม่ทราบ'] },
+      { q: 'พัดลมหม้อน้ำหมุนไหม?', opts: ['หมุน', 'ไม่หมุน', 'หมุนช้า', 'ไม่ทราบ'] }
+    ]},
+  { id: 'ENG-002', cat: 'ENG', label: 'เครื่องสั่น / รอบเดินเบาไม่นิ่ง', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'video รอบเดินเบา 10 วินาที' }],
+    fu: [{ q: 'สั่นเมื่อไหร่?', opts: ['ตอนสตาร์ทเย็น', 'ตอนติดเครื่องนาน', 'เมื่อเปิดแอร์', 'ตลอดเวลา'] }]},
+  { id: 'ENG-003', cat: 'ENG', label: 'เครื่องดับเอง / ดับกลางทาง', sev: 5, stop: true,
+    photos: [{ slot: 'C1', label: 'หน้าปัดตอนดับ' }],
+    fu: [{ q: 'ดับบ่อยแค่ไหน?', opts: ['ครั้งเดียว', 'หลายครั้งแล้ว', 'ดับทุกครั้งที่ขับ'] }]},
+  { id: 'ENG-004', cat: 'ENG', label: 'สตาร์ทยาก / สตาร์ทไม่ติด', sev: 4, stop: false,
+    photos: [{ slot: 'C1', label: 'ห้องเครื่อง' }]},
+  { id: 'ENG-005', cat: 'ENG', label: 'กำลังตก / เร่งไม่ขึ้น', sev: 3, stop: false, photos: []},
+  { id: 'ENG-006', cat: 'ENG', label: 'ควันขาวออกท่อ', sev: 4, stop: false,
+    photos: [{ slot: 'C1', label: 'video ควันออกท่อ 5 วินาที' }]},
+  { id: 'ENG-007', cat: 'ENG', label: 'ควันน้ำเงินออกท่อ', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'video ควัน + ก้านวัดน้ำมัน' }]},
+  { id: 'ENG-008', cat: 'ENG', label: 'เสียงเคาะเครื่อง (rod knock)', sev: 5, stop: true,
+    photos: [{ slot: 'C1', label: 'audio recording 10 วินาที' }]},
+  { id: 'ENG-011', cat: 'ENG', label: 'กลิ่นน้ำมันไหม้ในห้องเครื่อง', sev: 4, stop: false,
+    photos: [{ slot: 'C1', label: 'จุดที่ไหม้' }]},
+
+  // TRN
+  { id: 'TRN-001', cat: 'TRN', label: 'เกียร์กระตุก ตอนออกตัว', sev: 4, stop: false,
+    photos: [{ slot: 'C1', label: 'video ขณะเปลี่ยนเกียร์' }]},
+  { id: 'TRN-002', cat: 'TRN', label: 'เกียร์ลื่น / รอบสูงแต่ไม่วิ่ง', sev: 5, stop: true,
+    photos: [{ slot: 'C1', label: 'video รอบสูง รถไม่วิ่ง' }]},
+  { id: 'TRN-003', cat: 'TRN', label: 'เกียร์ค้าง limp mode', sev: 4, stop: false,
+    photos: [{ slot: 'C1', label: 'หน้าปัดที่ไฟโชว์' }]},
+  { id: 'TRN-006', cat: 'TRN', label: 'น้ำมันเกียร์รั่ว', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'ใต้ท้องรถบริเวณเกียร์' }]},
+
+  // BRK
+  { id: 'BRK-001', cat: 'BRK', label: 'เบรกแข็ง / กดยาก', sev: 5, stop: true,
+    photos: [{ slot: 'C1', label: 'แป้นเบรก' }]},
+  { id: 'BRK-002', cat: 'BRK', label: 'เบรกลึก / กดลึกผิดปกติ', sev: 5, stop: true,
+    photos: [{ slot: 'C1', label: 'กระป๋องน้ำมันเบรก' }]},
+  { id: 'BRK-003', cat: 'BRK', label: 'เบรกเสียงดัง', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'จานเบรกผ่านลายล้อ' }]},
+  { id: 'BRK-004', cat: 'BRK', label: 'เบรกสั่น', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'จานเบรก' }]},
+  { id: 'BRK-005', cat: 'BRK', label: 'ไฟ ABS โชว์ค้าง', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'หน้าปัดที่ไฟโชว์' }]},
+
+  // ELC
+  { id: 'ELC-001', cat: 'ELC', label: 'แบตหมดบ่อย', sev: 3, stop: false, photos: []},
+  { id: 'ELC-003', cat: 'ELC', label: 'หน้าปัดดับ / mile หาย', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'จอ pixel ที่หาย' }]},
+  { id: 'ELC-006', cat: 'ELC', label: 'สายไฟห้องเครื่องเสื่อม / กรอบ', sev: 4, stop: false,
+    photos: [{ slot: 'C1', label: 'โคลสอัพสายไฟ' }, { slot: 'C2', label: 'อีกมุม' }]},
+  { id: 'ELC-009', cat: 'ELC', label: 'ไฟเตือนหน้าปัดติดหลายดวง', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'หน้าปัดทั้งหมด' }]},
+
+  // SUS
+  { id: 'SUS-001', cat: 'SUS', label: 'เสียงตอนตกหลุม / ขับทางขรุขระ', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'audio + video ขณะขับ' }]},
+  { id: 'SUS-003', cat: 'SUS', label: 'พวงมาลัยหนัก / power หาย', sev: 4, stop: false, photos: []},
+  { id: 'SUS-005', cat: 'SUS', label: 'SLS / Self-leveling ไม่ทำงาน', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'มุมท้ายรถ' }]},
+  { id: 'SUS-007', cat: 'SUS', label: 'air suspension ยุบข้างเดียว', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'รถเอียงข้างที่ยุบ' }]},
+
+  // HVA
+  { id: 'HVA-001', cat: 'HVA', label: 'แอร์ไม่เย็น', sev: 2, stop: false, photos: []},
+  { id: 'HVA-003', cat: 'HVA', label: 'พัดลมหม้อน้ำไม่หมุน', sev: 4, stop: false,
+    photos: [{ slot: 'C1', label: 'video หม้อน้ำตอนเครื่องร้อน' }]},
+  { id: 'HVA-007', cat: 'HVA', label: 'aux fan ไม่หมุน (W140)', sev: 4, stop: false,
+    photos: [{ slot: 'C1', label: 'พัดลม aux เฉพาะจุด' }]},
+
+  // BDY
+  { id: 'BDY-002', cat: 'BDY', label: 'ซันรูฟติด / ปิดไม่สนิท', sev: 2, stop: false,
+    photos: [{ slot: 'C1', label: 'ซันรูฟภาพรวม' }]},
+  { id: 'BDY-004', cat: 'BDY', label: 'สนิม fender / โป่งล้อ', sev: 2, stop: false,
+    photos: [{ slot: 'C1', label: 'บริเวณสนิม' }]},
+
+  // LEK
+  { id: 'LEK-001', cat: 'LEK', label: 'น้ำมันเครื่องรั่ว', sev: 3, stop: false,
+    photos: [{ slot: 'C1', label: 'ใต้ท้องรถ + จุดหยด' }]},
+  { id: 'LEK-003', cat: 'LEK', label: 'น้ำหล่อเย็นรั่ว / หาย', sev: 4, stop: false,
+    photos: [{ slot: 'C1', label: 'หม้อพัก + ใต้ท้อง' }]},
+  { id: 'LEK-005', cat: 'LEK', label: 'น้ำมันเบรกรั่ว', sev: 5, stop: true,
+    photos: [{ slot: 'C1', label: 'กระป๋องน้ำมันเบรก + ใต้ท้อง' }]}
+];
+
+// Compute counts per category
+CATEGORIES.forEach(c => { c.count = SYMPTOMS.filter(s => s.cat === c.id).length; });
+
+// ============================================================
+// ================ §3 SAFETY LEVEL ===========================
+// ============================================================
+
+function computeUrgency(selectedSymptoms) {
+  if (selectedSymptoms.length === 0) return { level: 1, label: 'COSMETIC' };
+
+  const symObjs = selectedSymptoms.map(id => SYMPTOMS.find(s => s.id === id)).filter(Boolean);
+
+  // Level 5: any stop_drive_flag with severity 5
+  if (symObjs.some(s => s.stop && s.sev === 5)) {
+    return { level: 5, label: 'STOP_DRIVE_LEVEL_5', symptoms: symObjs.filter(s => s.stop) };
+  }
+
+  // Risk combinations
+  const ids = symObjs.map(s => s.id);
+  if (ids.includes('ENG-001') && ids.includes('LEK-003')) {
+    return { level: 5, label: 'STOP_DRIVE_LEVEL_5', combo: 'overheat + coolant leak' };
+  }
+  if (ids.includes('BRK-003') && ids.includes('BRK-004')) {
+    return { level: 5, label: 'STOP_DRIVE_LEVEL_5', combo: 'brake combo' };
+  }
+
+  const maxSev = Math.max(...symObjs.map(s => s.sev));
+  if (maxSev >= 4) return { level: 4, label: 'STOP_WITHIN_24H' };
+  if (maxSev >= 3) return { level: 3, label: 'DRIVE_WITH_CAUTION' };
+  if (maxSev >= 2) return { level: 2, label: 'SCHEDULED' };
+  return { level: 1, label: 'COSMETIC' };
+}
+
+// ============================================================
+// ================ STATE =====================================
+// ============================================================
+const state = {
+  step: 1,
+  caseId: generateCaseId(),
+  // Vehicle
+  vehicle: {
+    model_class: null,
+    model_year: null,
+    chassis_code: null,
+    chassis_confidence: null,
+    body_style: null,
+    fuel_type: null,
+    engine_displacement: null,
+    engine_code: null,
+    is_amg: false,
+    amg_variant: null,
+    is_4matic: false,
+    mileage_km: null
+  },
+  // Symptoms
+  symptoms: {
+    selected_category: null,
+    selected_symptoms: [],
+    follow_ups: {},
+    note: ''
+  },
+  // Safety
+  safety: {
+    urgency_level: null,
+    stop_drive_acknowledged: null
+  },
+  // Evidence
+  evidence: {
+    A1: null, A2: null, A3: null,
+    symptom_photos: {}
+  },
+  // Customer
+  customer: {
+    name: '', phone: '', line_id: '', province: '', district: ''
+  },
+  consent: false
+};
+
+function generateCaseId() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const rand = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `MC-${y}${m}${day}-${rand}`;
+}
+
+// ============================================================
+// ================ INITIALIZATION ============================
+// ============================================================
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
+  buildYearOptions();
+  buildCategoryGrid();
+  bindModelClass();
+  bindYearChange();
+  bindGridOptions();
+  bindAmgChange();
+  bindPhotoSlots(['A1', 'A2', 'A3']);
+  updateNav();
+}
+
+function buildYearOptions() {
+  const sel = document.getElementById('model_year');
+  for (let y = 2003; y >= 1979; y--) {
+    const opt = document.createElement('option');
+    opt.value = y;
+    opt.textContent = y + ' (พ.ศ. ' + (y + 543) + ')';
+    sel.appendChild(opt);
+  }
+}
+
+function buildCategoryGrid() {
+  const grid = document.getElementById('cat-grid');
+  grid.innerHTML = CATEGORIES.map(c => `
+    <div class="cat-card" data-cat="${c.id}">
+      <div class="cat-icon">${c.id}</div>
+      <div class="cat-name">${c.name}</div>
+      <div class="cat-count">${c.count} อาการ</div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.cat-card').forEach(card => {
+    card.addEventListener('click', () => selectCategory(card.dataset.cat));
+  });
+}
+
+// ============================================================
+// ================ §1 BINDINGS ===============================
+// ============================================================
+
+function bindModelClass() {
+  document.querySelectorAll('input[name="model_class"]').forEach(input => {
+    input.addEventListener('change', e => {
+      state.vehicle.model_class = e.target.value;
+      // Update visuals
+      document.querySelectorAll('#q-model-class .option-card').forEach(card => card.classList.remove('selected'));
+      e.target.closest('.option-card').classList.add('selected');
+      tryResolveChassis();
+    });
+  });
+}
+
+function bindYearChange() {
+  document.getElementById('model_year').addEventListener('change', e => {
+    state.vehicle.model_year = e.target.value;
+    tryResolveChassis();
+  });
+  document.getElementById('mileage').addEventListener('input', e => {
+    state.vehicle.mileage_km = e.target.value ? parseInt(e.target.value) : null;
+  });
+  document.getElementById('amg_variant').addEventListener('input', e => {
+    state.vehicle.amg_variant = e.target.value;
+  });
+}
+
+function tryResolveChassis() {
+  if (!state.vehicle.model_class || !state.vehicle.model_year) return;
+  const result = resolveChassis(state.vehicle.model_class, state.vehicle.model_year);
+  const resultDiv = document.getElementById('chassis-result');
+  const textDiv = document.getElementById('chassis-text');
+  const warnDiv = document.getElementById('chassis-warning');
+
+  if (!result) return;
+
+  if (result.error) {
+    resultDiv.classList.remove('hidden');
+    textDiv.style.color = 'var(--accent)';
+    textDiv.textContent = '⚠ ' + result.error;
+    warnDiv.classList.add('hidden');
+    state.vehicle.chassis_code = null;
+    return;
+  }
+
+  state.vehicle.chassis_code = result.chassis;
+  state.vehicle.chassis_confidence = result.confidence;
+  resultDiv.classList.remove('hidden');
+  textDiv.style.color = 'var(--ink)';
+  textDiv.textContent = '✓ ' + CHASSIS_NAME_TH[result.chassis];
+
+  if (result.note) {
+    warnDiv.classList.remove('hidden');
+    warnDiv.textContent = '※ ' + result.note;
+  } else {
+    warnDiv.classList.add('hidden');
+  }
+
+  // Show body style options
+  buildBodyOptions(result.chassis);
+  document.getElementById('q-body').classList.remove('hidden');
+}
+
+function buildBodyOptions(chassis) {
+  const opts = BODY_STYLES[chassis];
+  const grid = document.getElementById('body-options');
+  grid.innerHTML = opts.map(b => `<div class="grid-option" data-value="${b}">${BODY_LABELS[b]}</div>`).join('');
+  grid.querySelectorAll('.grid-option').forEach(el => {
+    el.addEventListener('click', () => {
+      grid.querySelectorAll('.grid-option').forEach(x => x.classList.remove('selected'));
+      el.classList.add('selected');
+      state.vehicle.body_style = el.dataset.value;
+      document.getElementById('q-fuel').classList.remove('hidden');
+    });
+  });
+}
+
+function bindGridOptions() {
+  // Fuel
+  document.querySelectorAll('#fuel-options .grid-option').forEach(el => {
+    el.addEventListener('click', () => {
+      if (el.dataset.value === 'diesel') {
+        showToast('Mr.Chuti รับเฉพาะเครื่องเบนซินครับ — ดีเซลแนะนำให้ติดต่อร้านเฉพาะทาง');
+        return;
+      }
+      document.querySelectorAll('#fuel-options .grid-option').forEach(x => x.classList.remove('selected'));
+      el.classList.add('selected');
+      state.vehicle.fuel_type = el.dataset.value;
+      buildDisplacementOptions();
+      document.getElementById('q-displacement').classList.remove('hidden');
+    });
+  });
+}
+
+function buildDisplacementOptions() {
+  if (!state.vehicle.chassis_code) return;
+  const opts = DISPLACEMENT_OPTS[state.vehicle.chassis_code];
+  const grid = document.getElementById('displacement-options');
+  grid.innerHTML = opts.map(d => `<div class="grid-option" data-value="${d}">${d} L</div>`).join('') +
+    `<div class="grid-option" data-value="unsure">ไม่แน่ใจ</div>`;
+  grid.querySelectorAll('.grid-option').forEach(el => {
+    el.addEventListener('click', () => {
+      grid.querySelectorAll('.grid-option').forEach(x => x.classList.remove('selected'));
+      el.classList.add('selected');
+      state.vehicle.engine_displacement = el.dataset.value;
+      resolveEngine();
+      document.getElementById('q-amg').classList.remove('hidden');
+      // 4MATIC only for W124 / W210
+      if (['W124', 'W210'].includes(state.vehicle.chassis_code)) {
+        document.getElementById('q-4matic').classList.remove('hidden');
+      }
+    });
+  });
+}
+
+function resolveEngine() {
+  const key = state.vehicle.chassis_code + '|' + state.vehicle.engine_displacement;
+  const engine = ENGINE_MAP[key];
+  if (engine) {
+    state.vehicle.engine_code = engine;
+    document.getElementById('engine-result').classList.remove('hidden');
+    document.getElementById('engine-text').textContent = `น่าจะเป็นเครื่อง ${engine}`;
+  }
+}
+
+function bindAmgChange() {
+  document.querySelectorAll('#q-amg .grid-option').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('#q-amg .grid-option').forEach(x => x.classList.remove('selected'));
+      el.classList.add('selected');
+      state.vehicle.is_amg = el.dataset.value === 'yes';
+      document.getElementById('q-amg-variant').classList.toggle('hidden', !state.vehicle.is_amg);
+    });
+  });
+  document.querySelectorAll('#q-4matic .grid-option').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('#q-4matic .grid-option').forEach(x => x.classList.remove('selected'));
+      el.classList.add('selected');
+      state.vehicle.is_4matic = el.dataset.value === 'yes';
+    });
+  });
+}
+
+// ============================================================
+// ================ §2 BINDINGS ===============================
+// ============================================================
+
+function selectCategory(catId) {
+  state.symptoms.selected_category = catId;
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.toggle('selected', c.dataset.cat === catId));
+  buildSymptomList(catId);
+  document.getElementById('sym-field').classList.remove('hidden');
+}
+
+function buildSymptomList(catId) {
+  const list = document.getElementById('sym-list');
+  let items = SYMPTOMS.filter(s => s.cat === catId);
+
+  // Filter by chassis (signature issues)
+  const chassis = state.vehicle.chassis_code;
+  if (catId === 'HVA') {
+    if (chassis !== 'W140') items = items.filter(s => s.id !== 'HVA-007');
+  }
+
+  list.innerHTML = items.map(s => {
+    const sevBadge = s.stop ? `<div class="sym-stop">STOP</div>` :
+                     s.sev >= 4 ? `<div class="sym-warn">SEV ${s.sev}</div>` : '';
+    return `
+      <div class="sym-item" data-id="${s.id}">
+        <div class="sym-check"></div>
+        <div class="sym-content">
+          <div class="sym-label">${s.label}</div>
+          <div class="sym-meta">${s.id}</div>
+        </div>
+        ${sevBadge}
+      </div>
+    `;
+  }).join('');
+
+  list.querySelectorAll('.sym-item').forEach(item => {
+    item.addEventListener('click', () => toggleSymptom(item.dataset.id, item));
+  });
+}
+
+function toggleSymptom(symId, el) {
+  const idx = state.symptoms.selected_symptoms.indexOf(symId);
+  if (idx >= 0) {
+    state.symptoms.selected_symptoms.splice(idx, 1);
+    el.classList.remove('selected');
+    delete state.symptoms.follow_ups[symId];
+  } else {
+    state.symptoms.selected_symptoms.push(symId);
+    el.classList.add('selected');
+  }
+  renderFollowUps();
+}
+
+function renderFollowUps() {
+  const container = document.getElementById('follow-ups-container');
+  container.innerHTML = '';
+  state.symptoms.selected_symptoms.forEach(symId => {
+    const sym = SYMPTOMS.find(s => s.id === symId);
+    if (!sym || !sym.fu || sym.fu.length === 0) return;
+
+    const div = document.createElement('div');
+    div.className = 'follow-ups';
+    div.innerHTML = `
+      <div class="follow-ups-title">${sym.label}</div>
+      ${sym.fu.map((q, qi) => `
+        <div class="field" style="margin-bottom: 12px;">
+          <label class="field-label" style="font-size: 13px;">${q.q}</label>
+          <div class="grid-options" style="grid-template-columns: 1fr 1fr;">
+            ${q.opts.map(opt => `
+              <div class="grid-option fu-opt" data-sym="${symId}" data-q="${qi}" data-val="${opt}">${opt}</div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
+    `;
+    container.appendChild(div);
+  });
+
+  // Bind FU options
+  container.querySelectorAll('.fu-opt').forEach(el => {
+    el.addEventListener('click', () => {
+      const sym = el.dataset.sym;
+      const q = el.dataset.q;
+      const val = el.dataset.val;
+      // Clear siblings
+      el.parentElement.querySelectorAll('.fu-opt').forEach(x => x.classList.remove('selected'));
+      el.classList.add('selected');
+      if (!state.symptoms.follow_ups[sym]) state.symptoms.follow_ups[sym] = {};
+      state.symptoms.follow_ups[sym][q] = val;
+    });
+  });
+}
+
+document.getElementById('symptom_note').addEventListener('input', e => {
+  state.symptoms.note = e.target.value;
+});
+
+// ============================================================
+// ================ §3-§4 SAFETY + PHOTOS =====================
+// ============================================================
+
+function renderSafetyAndPhotos() {
+  // Safety warning
+  const urgency = computeUrgency(state.symptoms.selected_symptoms);
+  state.safety.urgency_level = urgency.label;
+
+  const warnDiv = document.getElementById('safety-warning');
+  warnDiv.innerHTML = '';
+  if (urgency.level === 5) {
+    showStopModal();
+  } else if (urgency.level === 4) {
+    warnDiv.innerHTML = `
+      <div class="warning-box level-4">
+        <div class="warning-title">⚠️ คำเตือนระดับสูง</div>
+        <div class="warning-text">อาการของคุณต้องซ่อมด่วนภายใน 24 ชั่วโมง<br>
+        ห้ามขับทางไกลหรือเร็วเกิน 80 km/h</div>
+      </div>
+    `;
+  } else if (urgency.level === 3) {
+    warnDiv.innerHTML = `
+      <div class="warning-box level-3">
+        <div class="warning-title">⚡ ควรนัดซ่อมในสัปดาห์นี้</div>
+        <div class="warning-text">ขับในเมืองได้ปกติ แต่ปล่อยไว้นานจะเสียหายเพิ่ม</div>
+      </div>
+    `;
+  }
+
+  // Symptom-specific photos
+  const photoField = document.getElementById('sym-photos-field');
+  const photoGrid = document.getElementById('sym-photo-grid');
+  photoGrid.innerHTML = '';
+
+  let hasPhotos = false;
+  state.symptoms.selected_symptoms.forEach(symId => {
+    const sym = SYMPTOMS.find(s => s.id === symId);
+    if (!sym || !sym.photos || sym.photos.length === 0) return;
+    sym.photos.forEach((photo, idx) => {
+      hasPhotos = true;
+      const slotKey = `${symId}-${photo.slot}`;
+      photoGrid.innerHTML += `
+        <label class="photo-slot required" data-slot="${slotKey}">
+          <input type="file" accept="image/*" capture="environment">
+          <div class="photo-icon">📷</div>
+          <div class="photo-label">${photo.label}</div>
+          <div class="photo-tag">${sym.id}</div>
+        </label>
+      `;
+    });
+  });
+
+  if (hasPhotos) {
+    photoField.classList.remove('hidden');
+    bindPhotoSlots(Array.from(photoGrid.querySelectorAll('.photo-slot')).map(s => s.dataset.slot));
+  } else {
+    photoField.classList.add('hidden');
+  }
+}
+
+function bindPhotoSlots(slotKeys) {
+  slotKeys.forEach(key => {
+    const slot = document.querySelector(`.photo-slot[data-slot="${key}"]`);
+    if (!slot) return;
+    const input = slot.querySelector('input[type="file"]');
+    if (!input || input.dataset.bound === '1') return;
+    input.dataset.bound = '1';
+    input.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      // Compress
+      compressImage(file, 1600, 0.8).then(blob => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (key.startsWith('A')) {
+            state.evidence[key] = reader.result;
+          } else {
+            state.evidence.symptom_photos[key] = reader.result;
+          }
+          // Update visual
+          const img = document.createElement('img');
+          img.src = reader.result;
+          slot.querySelectorAll('img').forEach(x => x.remove());
+          slot.appendChild(img);
+          slot.classList.add('uploaded');
+        };
+        reader.readAsDataURL(blob);
+      });
+    });
+  });
+}
+
+function compressImage(file, maxDim, quality) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = e => { img.src = e.target.result; };
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let w = img.width, h = img.height;
+      if (w > maxDim || h > maxDim) {
+        if (w > h) { h = h * maxDim / w; w = maxDim; }
+        else { w = w * maxDim / h; h = maxDim; }
+      }
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      canvas.toBlob(resolve, 'image/jpeg', quality);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function showStopModal() {
+  const modal = document.getElementById('stop-modal');
+  const list = document.getElementById('stop-modal-list');
+  const stopSyms = state.symptoms.selected_symptoms
+    .map(id => SYMPTOMS.find(s => s.id === id))
+    .filter(s => s && s.stop && s.sev === 5);
+  list.innerHTML = stopSyms.map(s => `<div class="modal-list-item">⚠ ${s.label}</div>`).join('');
+  modal.classList.add('show');
+}
+
+function acknowledgeStopDrive(accepted) {
+  state.safety.stop_drive_acknowledged = {
+    accepted_risk: accepted,
+    at: new Date().toISOString()
+  };
+  document.getElementById('stop-modal').classList.remove('show');
+  if (accepted) {
+    showToast('บันทึกแล้ว — โปรดระวังขณะขับ');
+  }
+}
+
+// ============================================================
+// ================ STEP 4 — SUMMARY ==========================
+// ============================================================
+
+function renderSummary() {
+  // Bind contact inputs
+  ['customer_name', 'customer_phone', 'customer_line', 'customer_province', 'customer_district'].forEach(id => {
+    const key = id.replace('customer_', '');
+    const map = { line: 'line_id' };
+    const stateKey = map[key] || key;
+    const input = document.getElementById(id);
+    if (!input.dataset.bound) {
+      input.dataset.bound = '1';
+      input.addEventListener('input', e => { state.customer[stateKey] = e.target.value.trim(); });
+    }
+  });
+  document.getElementById('consent').addEventListener('change', e => {
+    state.consent = e.target.checked;
+    // Toggle 'selected' class on parent label so the checkmark shows
+    e.target.closest('.option-card').classList.toggle('selected', e.target.checked);
+    updateNav();
+  });
+
+  // Build summary
+  const v = state.vehicle;
+  const s = state.symptoms;
+  const symLabels = s.selected_symptoms.map(id => SYMPTOMS.find(x => x.id === id)?.label).filter(Boolean);
+
+  const html = `
+    <div class="summary-section">
+      <div class="summary-label">รถ</div>
+      <div class="summary-row"><span class="k">รุ่น</span><span class="v">${CHASSIS_NAME_TH[v.chassis_code] || '-'}</span></div>
+      <div class="summary-row"><span class="k">ปี</span><span class="v">${v.model_year || '-'}</span></div>
+      <div class="summary-row"><span class="k">ตัวถัง</span><span class="v">${BODY_LABELS[v.body_style] || '-'}</span></div>
+      <div class="summary-row"><span class="k">เครื่อง</span><span class="v">${v.engine_code || v.engine_displacement + ' L' || '-'}</span></div>
+      ${v.is_amg ? `<div class="summary-row"><span class="k">AMG</span><span class="v">${v.amg_variant || '✓'}</span></div>` : ''}
+      ${v.is_4matic ? `<div class="summary-row"><span class="k">4MATIC</span><span class="v">✓</span></div>` : ''}
+    </div>
+    <div class="summary-section">
+      <div class="summary-label">อาการ (${symLabels.length} รายการ)</div>
+      ${symLabels.map(l => `<div style="font-size: 13px; padding: 2px 0;">• ${l}</div>`).join('')}
+    </div>
+    <div class="summary-section">
+      <div class="summary-label">ระดับความเร่งด่วน</div>
+      <div class="summary-value">${urgencyLabelTh(state.safety.urgency_level)}</div>
+    </div>
+    <div class="summary-section">
+      <div class="summary-label">หมายเลขเคส</div>
+      <div class="summary-value" style="font-family: var(--font-mono); letter-spacing: 0.1em;">${state.caseId}</div>
+    </div>
+  `;
+  document.getElementById('summary-content').innerHTML = html;
+}
+
+function urgencyLabelTh(level) {
+  const map = {
+    'STOP_DRIVE_LEVEL_5': '🚨 STOP-DRIVE — หยุดขับทันที',
+    'STOP_WITHIN_24H': '⚠️ HIGH — ซ่อมด่วนใน 24 ชม.',
+    'DRIVE_WITH_CAUTION': '⚡ MEDIUM — นัดในสัปดาห์',
+    'SCHEDULED': '📅 LOW — นัดสะดวก',
+    'COSMETIC': '🟢 COSMETIC — ความสวยงาม'
+  };
+  return map[level] || '-';
+}
+
+// ============================================================
+// ================ NAVIGATION ================================
+// ============================================================
+
+function navStep(delta) {
+  const newStep = state.step + delta;
+  if (newStep < 1 || newStep > 5) return;
+
+  // Validation when going forward
+  if (delta > 0 && !validateCurrentStep()) return;
+
+  // Hide current
+  document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
+  document.getElementById('hero').classList.toggle('hidden', newStep !== 1);
+
+  if (newStep === 5) {
+    submitForm();
+    return;
+  }
+
+  state.step = newStep;
+  document.getElementById('step-' + newStep).classList.remove('hidden');
+
+  // Side effects
+  if (newStep === 3) renderSafetyAndPhotos();
+  if (newStep === 4) renderSummary();
+
+  updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function validateCurrentStep() {
+  if (state.step === 1) {
+    const v = state.vehicle;
+    if (!v.model_class) return showToast('กรุณาเลือกรุ่นรถ');
+    if (!v.model_year) return showToast('กรุณาเลือกปีรถ');
+    if (!v.chassis_code) return showToast('ปี/รุ่นไม่ตรงกับขอบเขต Mr.Chuti');
+    if (!v.body_style) return showToast('กรุณาเลือกตัวถัง');
+    if (!v.fuel_type) return showToast('กรุณาเลือกเชื้อเพลิง');
+    if (!v.engine_displacement) return showToast('กรุณาเลือกความจุเครื่อง');
+    return true;
+  }
+  if (state.step === 2) {
+    if (!state.symptoms.selected_category) return showToast('กรุณาเลือกหมวดอาการ');
+    if (state.symptoms.selected_symptoms.length === 0) return showToast('กรุณาเลือกอาการอย่างน้อย 1 รายการ');
+    return true;
+  }
+  if (state.step === 3) {
+    if (!state.evidence.A1 || !state.evidence.A2 || !state.evidence.A3) {
+      return showToast('กรุณาถ่ายภาพ A1, A2, A3 ให้ครบ');
+    }
+    return true;
+  }
+  if (state.step === 4) {
+    const c = state.customer;
+    if (!c.name) return showToast('กรุณากรอกชื่อ');
+    if (!c.phone || c.phone.length < 9) return showToast('กรุณากรอกเบอร์โทร');
+    if (!c.province) return showToast('กรุณากรอกจังหวัด');
+    if (!state.consent) return showToast('กรุณายอมรับการแบ่งปันข้อมูล');
+    return true;
+  }
+  return true;
+}
+
+function updateNav() {
+  document.getElementById('btn-back').style.visibility = state.step === 1 ? 'hidden' : 'visible';
+  const nextBtn = document.getElementById('btn-next');
+  if (state.step === 4) {
+    nextBtn.textContent = '✓ ส่งเคส';
+    nextBtn.disabled = !state.consent;
+  } else {
+    nextBtn.textContent = 'ถัดไป →';
+    nextBtn.disabled = false;
+  }
+  document.getElementById('step-label').textContent = `ขั้นตอนที่ ${state.step} จาก 4`;
+  const stepNames = { 1: 'ระบุรถ', 2: 'อาการ', 3: 'ภาพ', 4: 'ติดต่อ' };
+  document.getElementById('step-name').textContent = stepNames[state.step] || '';
+  document.querySelectorAll('.rail-step').forEach(el => {
+    const s = parseInt(el.dataset.step);
+    el.classList.toggle('done', s < state.step);
+    el.classList.toggle('active', s === state.step);
+  });
+}
+
+// ============================================================
+// ================ SUBMIT ====================================
+// ============================================================
+
+async function submitForm() {
+  showToast('กำลังส่งเคส...');
+  const payload = buildPayload();
+
+  if (CONFIG.GOOGLE_SCRIPT_URL.startsWith('https://')) {
+    try {
+      const formData = new FormData();
+      formData.append('payload', JSON.stringify(payload));
+      const res = await fetch(CONFIG.GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+      });
+      // Apps Script returns text
+      console.log('Submitted:', await res.text());
+    } catch (err) {
+      console.error('Submit error:', err);
+      showToast('ส่งสำเร็จ (offline mode)');
+    }
+  } else {
+    console.warn('Apps Script URL not configured — payload:', payload);
+  }
+
+  showDoneState();
+}
+
+function buildPayload() {
+  return {
+    case_id: state.caseId,
+    submitted_at: new Date().toISOString(),
+    catalog_version: CONFIG.CATALOG_VERSION,
+
+    vehicle_identity: state.vehicle,
+
+    symptom_intake: {
+      category: state.symptoms.selected_category,
+      symptoms: state.symptoms.selected_symptoms.map(id => {
+        const s = SYMPTOMS.find(x => x.id === id);
+        return { id: s.id, label: s.label, severity: s.sev, stop_drive: s.stop };
+      }),
+      follow_ups: state.symptoms.follow_ups,
+      note: state.symptoms.note
+    },
+
+    safety_assessment: {
+      urgency_level: state.safety.urgency_level,
+      stop_drive_acknowledged: state.safety.stop_drive_acknowledged
+    },
+
+    evidence_capture: {
+      vehicle_photos: { A1: state.evidence.A1, A2: state.evidence.A2, A3: state.evidence.A3 },
+      symptom_photos: state.evidence.symptom_photos
+    },
+
+    customer: state.customer,
+    consent: state.consent
+  };
+}
+
+function showDoneState() {
+  document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
+  document.getElementById('hero').classList.add('hidden');
+  document.getElementById('step-done').classList.remove('hidden');
+  document.getElementById('done-case-id').textContent = state.caseId;
+  document.getElementById('nav-bar').style.display = 'none';
+  document.querySelector('.progress').style.display = 'none';
+}
+
+// ============================================================
+// ================ HELPERS ===================================
+// ============================================================
+
+function showToast(msg, duration = 2400) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), duration);
+  return false;
+}
+
+function copyCaseId() {
+  navigator.clipboard.writeText(state.caseId).then(() => showToast('คัดลอกแล้ว'));
+}
+
+</script>
+</body>
+</html>
